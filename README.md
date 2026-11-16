@@ -38,9 +38,9 @@
 
 ## 💡 Overview
 
-The best retrieval setup for a multimodal RAG system depends on its knowledge base. **CHART** searches over text retrieval depth, image retrieval depth, chunk size, and embedding backend under a fixed evaluation budget. It evaluates each tried configuration on a small, fixed question set and uses the observed rewards to choose the next configuration. The final output is the highest-scoring configuration evaluated within the budget.
+The best retrieval setup depends on the document collection. **CHART** searches text and image retrieval depth, chunk size, and embedding backend within a fixed budget, using observed rewards to choose each next configuration. It returns the highest-scoring configuration it evaluated.
 
-CHART uses **Redundancy-Discounted Support (RDS)** to assess whether retrieved evidence supports a reference answer and how much of that evidence repeats the same facts. The selector then combines a local reward estimate from its trial memory with a distance-based exploration bonus. It does not call an LLM to make search decisions; the judge and image transcription models are used during configuration evaluation.
+**Redundancy-Discounted Support (RDS)** scores reference-answer support while discounting repeated facts. CHART selects the next configuration using trial memory and a distance-based exploration bonus; it uses no LLM for search decisions.
 
 ## 🧭 Method
 
@@ -57,7 +57,7 @@ Each configuration is a tuple of four choices:
 | Chunk size | `64`, `128`, `256`, `512` |
 | Embedding backend | `jina_nano`, `jina_small`, `qwen3_vl_2b` |
 
-This gives **288 candidate configurations**. A search starts with five shared evaluations and makes 25 further selections. For an untried configuration, CHART predicts reward from its five nearest evaluated configurations and adds `0.1 ×` its distance from the nearest observation. It evaluates the highest-utility candidate, records the new reward, and repeats until the 30-evaluation budget is used.
+The search space has **288 configurations**. Each run starts with five shared evaluations, then makes 25 selections. CHART estimates each untried configuration's reward from its five nearest trials, adds a distance-based exploration bonus, and evaluates the highest-utility option.
 
 For a question *q*, RDS combines the judge's support probability and expected semantic redundancy:
 
@@ -66,7 +66,7 @@ reward(q) = P(support | q, evidence) × [1 − 0.5 × E(redundancy | q, evidence
 configuration reward = mean reward(q) over the fixed question set
 ```
 
-Images are transcribed into question-independent facts before judging. RDS is an **evidence-level proxy reward**; it is not a recall metric or a direct measure of downstream answer accuracy.
+Images are transcribed into question-independent facts. RDS is an **evidence-level proxy**, not a recall metric or a direct measure of answer accuracy.
 
 ## 🎬 Demo
 
@@ -78,7 +78,7 @@ Images are transcribed into question-independent facts before judging. RDS is an
 
 ## 📈 Results
 
-We compare CHART with Random, coordinate descent, TPE, and an LLM controller on three document collections. Each dataset uses 50 fixed questions. Within each of 20 matched search seeds, the methods start from the same five configurations and receive the same budget. **Reward@k** is the best RDS reward observed in the first *k* evaluations, averaged across seeds.
+We compare CHART with Random, coordinate descent, TPE, and an LLM controller on three document collections. Each uses 50 fixed questions and 20 paired seeds; methods share five starting configurations and a 30-evaluation budget. **Reward@k** is the best RDS reward in the first *k* evaluations, averaged across seeds.
 
 | Dataset | CHART @10 | Random @10 | CHART @30 | Random @30 | Coordinate descent @30 | TPE @30 | LLM @30 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -86,7 +86,7 @@ We compare CHART with Random, coordinate descent, TPE, and an LLM controller on 
 | Finance EN | **0.7244** | 0.7074 | **0.7359** | 0.7203 | 0.7337 | 0.7326 | 0.7243 |
 | Techslides | **0.7516** | 0.7473 | 0.7627 | 0.7532 | **0.7628** | 0.7601 | 0.7601 |
 
-The table uses the complete **20-seed** experiment. CHART has a higher mean Reward@30 than Random in all three datasets; on Techslides, coordinate descent is marginally higher at @30. These are point estimates, not claims of a statistically significant difference. The [full experimental report](docs/20261104_three_dataset_rep20_report.md) includes all five budgets and the historical rule-augmented ablation.
+These are the complete **20-seed** results. CHART's mean Reward@30 is higher than Random's on all three datasets; coordinate descent is slightly higher on Techslides. These are point estimates. The [full report](docs/20261104_three_dataset_rep20_report.md) includes all five budgets and the rule-augmented ablation.
 
 <p align="center">
   <img src="assets/chart_budget_curves.svg" alt="CHART reward curves over 20 paired seeds across Pharma, Finance, TechSlides, and their macro average" width="100%">
@@ -107,17 +107,17 @@ python -m pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Fill in `.env` with the judge and model endpoints, credentials, corpus locations, Elasticsearch connection, and local embedding-model paths. The template documents each variable. The evaluation depends on these services and on the prepared indexes; the Python package alone is not sufficient to run a search.
+Set `.env` with model endpoints, credentials, corpus paths, Elasticsearch, and local embedding paths. The example file lists the variables. Running a search also requires these services and prepared indexes.
 
 ### 2. Prepare data and indexes
 
-The repository includes the **50-question evaluation subsets**, but not the underlying document text, images, model weights, or Elasticsearch indexes. Obtain each corpus under its original terms and arrange its pages and images as described in [the dataset notes below](#-data-and-indexes). Build or connect the 15 indexes for each dataset (12 text indexes across four chunk sizes and three backends, plus three image indexes).
+The repository includes **50-question subsets**, but not source documents, images, model weights, or indexes. Obtain each corpus under its license and prepare 15 indexes per dataset: 12 text and 3 image indexes.
 
 ```bash
 bash scripts/run.sh --validate-only
 ```
 
-To build indexes for a new corpus, see `python scripts/build_ao_dataset_index.py --help`.
+For index-building options, run `python scripts/build_ao_dataset_index.py --help`.
 
 ### 3. Run CHART
 
@@ -125,9 +125,9 @@ To build indexes for a new corpus, see `python scripts/build_ao_dataset_index.py
 DATASET=techslides POLICIES=jit_no_rules SEEDS=20 STEPS=25 bash scripts/run.sh
 ```
 
-`jit_no_rules` is the command-line identifier for CHART. The legacy `jit` policy adds rules and is treated as an ablation. The repository URL is current; the legacy Python package `mgrs`, `MGRS_*` environment variables, and `dqcr` manifest scheme remain for compatibility with frozen runs and existing commands.
+`jit_no_rules` runs CHART; legacy `jit` adds rules and is an ablation. The old `mgrs` package name, `MGRS_*` variables, and `dqcr` scheme remain for compatibility with saved runs.
 
-Use `DATASET=pharmaceuticals` or `DATASET=finance_en` for the other collections. Leaving `POLICIES` empty runs all six implemented strategies. `SEEDS` controls the number of search repeats and `STEPS` the decisions after the initial five evaluations. `TEXT_TOPK`, `IMAGE_TOPK`, `CHUNKS`, and `BACKENDS` can narrow the search space; see [the frozen configuration](configs/definitive_runs.json) for the full protocol.
+`DATASET` selects the collection; an empty `POLICIES` runs all six strategies. `SEEDS` sets repeats and `STEPS` sets decisions after initialization. Use `TEXT_TOPK`, `IMAGE_TOPK`, `CHUNKS`, and `BACKENDS` to narrow the search space; see [the frozen configuration](configs/definitive_runs.json).
 
 ## 📂 Data and indexes
 
@@ -137,20 +137,20 @@ Use `DATASET=pharmaceuticals` or `DATASET=finance_en` for the other collections.
 | `finance_en` | 2,942 | [`qa_screened50_from_179.json`](datasets/ao_ready_v1_subsets/finance_en/qa_screened50_from_179.json) |
 | `techslides` | 1,963 | [`qa_screened50_from_200.json`](datasets/ao_ready_v1_subsets/techslides/qa_screened50_from_200.json) |
 
-Each subset contains 50 questions with reference answers. The corpus reader expects a dataset directory containing `corpus.json` with page records such as `{id, text, images: [...]}` and the referenced image files. Set `MGRS_AO_CORPUS_ROOT` or a dataset-specific `MGRS_AO_CORPUS_DIR_*` variable in `.env`. Set `MGRS_INDEX_PREFIX_*` if your index names differ from the defaults. Corpus content remains subject to the source publishers' licenses.
+Each subset has 50 questions with reference answers. Provide `corpus.json` and its image files, then set `MGRS_AO_CORPUS_ROOT` or a dataset-specific `MGRS_AO_CORPUS_DIR_*` in `.env`. Set `MGRS_INDEX_PREFIX_*` if index names differ. Follow the corpus publishers' licenses.
 
 ## 🔁 Reproducibility
 
-The [frozen experiment configuration](configs/definitive_runs.json) records the search space, reward parameters, model identifiers, seed protocol, datasets, and run IDs. The [result report](docs/20261104_three_dataset_rep20_report.md) records the 20-seed results. Historical files use `jit_no_rules` for CHART and `jit` for the rule-augmented ablation.
+The [frozen configuration](configs/definitive_runs.json) records the protocol and run IDs. The [result report](docs/20261104_three_dataset_rep20_report.md) contains the 20-seed results. Historical runs use `jit_no_rules` for CHART and `jit` for the rule-augmented ablation.
 
 ```bash
 # After the three frozen run directories have been restored under runs/:
 OUT=/tmp/chart_report.md bash scripts/reproduce_report.sh
 ```
 
-`reproduce_report.sh` recomputes the report from saved trajectories without model or Elasticsearch calls. **The required `runs/20261103_*` trajectory directories are not currently included in this repository**, so the offline command cannot run from a fresh clone until those artifacts are supplied or the experiments are rerun. `scripts/run_search.sh` contains the frozen rerun entry point; its `rep6` run-ID segment is historical naming, while the experiment contains 20 repeats.
+`reproduce_report.sh` rebuilds the report offline from saved trajectories. **The required `runs/20261103_*` files are not included**, so a fresh clone needs those artifacts or a rerun. `scripts/run_search.sh` is the frozen rerun entry point; `rep6` in old run IDs is historical, and the final experiment has 20 repeats.
 
-For a faithful rerun, keep the judge model and `MGRS_JUDGE_SCHEMA_TAG` aligned with the frozen protocol. A different judge or reward setting defines a different scoring baseline; use a new schema tag and run ID rather than reusing old response caches. The frozen runs used `Jev_AO`, `qwen3.7-flash` image transcription, `qwen3.8-max` for the LLM baseline, and `γ = 0.5` in RDS. The stored `dqcr` scheme name identifies the same reward computation; it is a historical cache and manifest key.
+For comparable reruns, keep the judge and `MGRS_JUDGE_SCHEMA_TAG` aligned with the frozen protocol. Changing the judge or reward requires a new tag and run ID; do not reuse old response caches. Frozen runs used `Jev_AO`, `qwen3.7-flash` for image transcription, `qwen3.8-max` for the LLM baseline, and `γ = 0.5`. `dqcr` remains only as a legacy cache key for the same reward.
 
 ## 🗺️ Code map
 
@@ -174,4 +174,4 @@ docs/20261104_three_dataset_rep20_report.md
 
 ## 📜 License
 
-This repository is released under the [MIT License](LICENSE). Dataset and model licenses are governed by their respective publishers.
+Code is released under the [MIT License](LICENSE). Dataset and model terms are set by their publishers.
