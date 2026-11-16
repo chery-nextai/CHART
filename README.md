@@ -86,7 +86,7 @@ We compare CHART with Random, coordinate descent, TPE, and an LLM controller on 
 | Finance EN | **0.7244** | 0.7074 | **0.7359** | 0.7203 | 0.7337 | 0.7326 | 0.7243 |
 | Techslides | **0.7516** | 0.7473 | 0.7627 | 0.7532 | **0.7628** | 0.7601 | 0.7601 |
 
-These are the complete **20-seed** results. CHART's mean Reward@30 is higher than Random's on all three datasets; coordinate descent is slightly higher on Techslides. These are point estimates. The [full report](docs/20261104_three_dataset_rep20_report.md) includes all five budgets and the rule-augmented ablation.
+These are the complete **20-seed** results. CHART's mean Reward@30 is higher than Random's on all three datasets; coordinate descent is slightly higher on Techslides. Values are point estimates.
 
 <p align="center">
   <img src="assets/chart_budget_curves.svg" alt="CHART reward curves over 20 paired seeds across Pharma, Finance, TechSlides, and their macro average" width="100%">
@@ -125,7 +125,7 @@ For index-building options, run `python scripts/build_ao_dataset_index.py --help
 DATASET=techslides POLICIES=jit_no_rules SEEDS=20 STEPS=25 bash scripts/run.sh
 ```
 
-`jit_no_rules` runs CHART; legacy `jit` adds rules and is an ablation. The old `mgrs` package name, `MGRS_*` variables, and `dqcr` scheme remain for compatibility with saved runs.
+`jit_no_rules` runs CHART; `jit` is the rule-augmented ablation.
 
 `DATASET` selects the collection; an empty `POLICIES` runs all six strategies. `SEEDS` sets repeats and `STEPS` sets decisions after initialization. Use `TEXT_TOPK`, `IMAGE_TOPK`, `CHUNKS`, and `BACKENDS` to narrow the search space; see [the frozen configuration](configs/definitive_runs.json).
 
@@ -137,39 +137,29 @@ DATASET=techslides POLICIES=jit_no_rules SEEDS=20 STEPS=25 bash scripts/run.sh
 | `finance_en` | 2,942 | [`qa_screened50_from_179.json`](datasets/ao_ready_v1_subsets/finance_en/qa_screened50_from_179.json) |
 | `techslides` | 1,963 | [`qa_screened50_from_200.json`](datasets/ao_ready_v1_subsets/techslides/qa_screened50_from_200.json) |
 
-Each subset has 50 questions with reference answers. Provide `corpus.json` and its image files, then set `MGRS_AO_CORPUS_ROOT` or a dataset-specific `MGRS_AO_CORPUS_DIR_*` in `.env`. Set `MGRS_INDEX_PREFIX_*` if index names differ. Follow the corpus publishers' licenses.
+Each subset has 50 questions with reference answers. Provide `corpus.json` and its image files, then set `CHART_AO_CORPUS_ROOT` or a dataset-specific `CHART_AO_CORPUS_DIR_*` in `.env`. Set `CHART_INDEX_PREFIX_*` if index names differ. Follow the corpus publishers' licenses.
 
 ## 🔁 Reproducibility
 
-The [frozen configuration](configs/definitive_runs.json) records the protocol and run IDs. The [result report](docs/20261104_three_dataset_rep20_report.md) contains the 20-seed results. Historical runs use `jit_no_rules` for CHART and `jit` for the rule-augmented ablation.
-
-```bash
-# After the three frozen run directories have been restored under runs/:
-OUT=/tmp/chart_report.md bash scripts/reproduce_report.sh
-```
-
-`reproduce_report.sh` rebuilds the report offline from saved trajectories. **The required `runs/20261103_*` files are not included**, so a fresh clone needs those artifacts or a rerun. `scripts/run_search.sh` is the frozen rerun entry point; `rep6` in old run IDs is historical, and the final experiment has 20 repeats.
-
-For comparable reruns, keep the judge and `MGRS_JUDGE_SCHEMA_TAG` aligned with the frozen protocol. Changing the judge or reward requires a new tag and run ID; do not reuse old response caches. Frozen runs used `Jev_AO`, `qwen3.7-flash` for image transcription, `qwen3.8-max` for the LLM baseline, and `γ = 0.5`. `dqcr` remains only as a legacy cache key for the same reward.
+`configs/definitive_runs.json` records the frozen 20-seed protocol. Run outputs and caches are generated locally and are not included in the repository. Use `scripts/run_search.sh` for the frozen search setup.
 
 ## 🗺️ Code map
 
 ```text
-mgrs/
-├── pipeline/             Search entry point, policies, run layout, and RDS
-├── memory/               Configuration and reward memory
-├── controllers/          LLM, coordinate descent, and other baselines
-├── rag_pipeline/         Text and image retrieval, encoding, and model clients
-├── analysis/             Frozen-run analysis and report generation
-└── judge_client.py       Judge API adapters and response validation
+chart/
+├── pipeline/             Search entry points, strategies, and RDS reward
+├── controllers/          LLM and baseline controllers
+├── environment/          Dataset and evaluation runner
+├── memory/               Trial memory
+├── rag_pipeline/         Retrieval and model clients
+└── judge_client.py       Judge API adapters
 scripts/
-├── run.sh                General experiment entry point
-├── run_search.sh         Frozen-protocol rerun entry point
-├── build_ao_dataset_index.py
-└── reproduce_report.sh Offline report generation from saved runs
+├── run.sh                Configurable search
+├── run_search.sh         Frozen-protocol search
+└── build_ao_dataset_index.py
 configs/definitive_runs.json
 datasets/ao_ready_v1_subsets/
-docs/20261104_three_dataset_rep20_report.md
+assets/                   Framework, results, and demo media
 ```
 
 ## 📜 License

@@ -15,7 +15,7 @@ import re
 import time
 from typing import Any
 
-from mgrs.rag_pipeline.llm import AOChatClient
+from chart.rag_pipeline.llm import AOChatClient
 
 
 LOGGER = logging.getLogger("ao_explore.rq1_llm_controller")

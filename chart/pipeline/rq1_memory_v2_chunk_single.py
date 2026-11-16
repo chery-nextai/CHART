@@ -26,8 +26,8 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from mgrs.pipeline import rq1_memory_v2_chunk_dim as chunk
-from mgrs.pipeline import rq1_memory_v2_jit_random as search
+from chart.pipeline import rq1_memory_v2_chunk_dim as chunk
+from chart.pipeline import rq1_memory_v2_jit_random as search
 
 
 LOGGER = logging.getLogger("ao_explore.rq1_memory_v2_chunk_single")

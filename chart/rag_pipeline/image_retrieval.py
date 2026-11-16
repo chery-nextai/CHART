@@ -14,7 +14,7 @@ from elasticsearch import Elasticsearch, helpers
 from PIL import Image
 from transformers import CLIPModel, CLIPProcessor
 
-from mgrs import config as settings
+from chart import config as settings
 
 logger = logging.getLogger("ao_explore.image_retrieval")
 

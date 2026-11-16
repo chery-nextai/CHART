@@ -20,11 +20,11 @@ from typing import Any
 
 import numpy as np
 
-from mgrs.controllers.llm_controller import LLMController, SYSTEM_PROMPT
-from mgrs.environment.data import load_dataset
-from mgrs.pipeline import rq1_fixed_eval_paired5 as paired
-from mgrs.pipeline import rq1_memory_v2_jit_random as search
-from mgrs.pipeline.rq1_answer_f1_smoke import (
+from chart.controllers.llm_controller import LLMController, SYSTEM_PROMPT
+from chart.environment.data import load_dataset
+from chart.pipeline import rq1_fixed_eval_paired5 as paired
+from chart.pipeline import rq1_memory_v2_jit_random as search
+from chart.pipeline.rq1_answer_f1_smoke import (
     ANSWER_CACHE_SCHEMA,
     ANSWER_PROMPT_VERSION,
     ANSWER_SCORING_VERSION,

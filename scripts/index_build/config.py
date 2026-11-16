@@ -1,7 +1,7 @@
 """离线建库（写 ES 索引）所需的配置。
 
 只保留建库链路真正用到的字段，全部由环境变量提供，仓库内不写死机器相关路径或密钥。
-注意：这份配置与主包 ``mgrs/config.py``（查询/搜索侧）**不是同一份**——建库侧的
+注意：这份配置与主包 ``chart/config.py``（查询/搜索侧）**不是同一份**——建库侧的
 ``PipelineConfig`` 带 ``embedding_backend`` 维度，两者字段已经分叉，不要合并。
 """
 
@@ -41,15 +41,15 @@ SCIENCEQA_IMAGE_ROOT = os.getenv(
 
 # 各后端的编码器权重目录（本地离线加载）。默认在仓库根的 models/ 下按名字查找，
 # 可用环境变量覆盖：
-#   MGRS_EMBED_MODEL_ROOT            权重公共根目录，默认 <repo>/models
-#   MGRS_EMBED_MODEL_DIR_<BACKEND>   单个后端的权重目录（后端名大写）
+#   CHART_EMBED_MODEL_ROOT            权重公共根目录，默认 <repo>/models
+#   CHART_EMBED_MODEL_DIR_<BACKEND>   单个后端的权重目录（后端名大写）
 _EMBED_MODEL_ROOT = Path(
-    os.getenv("MGRS_EMBED_MODEL_ROOT", "").strip() or (PROJECT_ROOT / "models")
+    os.getenv("CHART_EMBED_MODEL_ROOT", "").strip() or (PROJECT_ROOT / "models")
 )
 
 
 def _embed_model_dir(backend: str, default_name: str) -> str:
-    override = os.getenv(f"MGRS_EMBED_MODEL_DIR_{backend.upper()}", "").strip()
+    override = os.getenv(f"CHART_EMBED_MODEL_DIR_{backend.upper()}", "").strip()
     return override or str(_EMBED_MODEL_ROOT / default_name)
 
 
@@ -75,7 +75,7 @@ class PipelineConfig:
 
 
 def candidate_configs(embedding_backends: list[str] | None = None) -> list[PipelineConfig]:
-    """建库侧只用于校验配置命名口径；搜索侧的空间定义见 mgrs/pipeline/rq1_memory_v2_jit_random.py。"""
+    """建库侧只用于校验配置命名口径；搜索侧的空间定义见 chart/pipeline/rq1_memory_v2_jit_random.py。"""
     backends = embedding_backends or list(EMBEDDING_BACKENDS)
     rows: list[PipelineConfig] = []
     for backend in backends:

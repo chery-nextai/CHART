@@ -8,8 +8,8 @@
 / _meta 与查询侧 BACKENDS 完全一致：
   <prefix>_text_embedding_v2_<backend>
   <prefix>_image_embedding_v2_<backend>
-查询侧（mgrs/pipeline/jev_ao_format_v1_paired.py 的 DATASETS）只需填同一个 prefix。
-编码器权重目录用 MGRS_EMBED_MODEL_ROOT / MGRS_EMBED_MODEL_DIR_<BACKEND> 指定（见 .env.example）。
+查询侧（chart/pipeline/jev_ao_format_v1_paired.py 的 DATASETS）只需填同一个 prefix。
+编码器权重目录用 CHART_EMBED_MODEL_ROOT / CHART_EMBED_MODEL_DIR_<BACKEND> 指定（见 .env.example）。
 
 安全约束
 --------
@@ -26,7 +26,7 @@
   nohup python scripts/build_ao_dataset_index.py ... > build_<prefix>_<backend>.log 2>&1 &
 
 python scripts/build_ao_dataset_index.py \
-  --dataset-dir "$MGRS_AO_CORPUS_DIR_PHARMACEUTICALS" \
+  --dataset-dir "$CHART_AO_CORPUS_DIR_PHARMACEUTICALS" \
   --index-prefix ao_pharmaceuticals_p2313 \
   --backends jina_nano,jina_small,qwen3_vl_2b \
   --es-url http://127.0.0.1:19200 --device cuda

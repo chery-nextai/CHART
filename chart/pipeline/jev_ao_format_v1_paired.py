@@ -1,36 +1,24 @@
 #!/usr/bin/env python3
-"""AO 格式包上的 chunk_size 搜索维度实验（288 空间）。
+"""AO 格式包（pharmaceuticals / industrial_subset_v1）上的六策略配对对比实验。
 
-与 `jev_ao_format_v1_paired.py` 的**唯一差异是搜索空间**，其余（题集、六策略、
-奖励口径、初始批次设计、冻结评分缓存、run 产物布局）全部保持一致，因此两者可比。
+复用 jev_initial_batch_repeat6.py 的全部策略实现与 JEV 奖励层，只替换三处
+数据集相关的写死项：
 
-搜索空间
-========
-    text_top_k(4) × image_top_k(6) × chunk_size(4) × embedding_backend(3) = 288
+1. 题集改用数据集自带的 qa_search.json（上游官方划分），不重新抽样，也不使用
+   ScienceQA 的数字 ID 抽样器。多个 references 时取首条作候选答案，与
+   search.reference_for 的既有语义一致。
+2. 运行时改写 search.BACKENDS 的索引名到
+   aoexplore_<name>_p<pages>_{text,image}_embedding_v2_<backend>，
+   不动共享模块（因此 validate_indices 的 3944 写死不受影响 —— 本脚本不调用它）。
+3. 不复制 cache_source 的 ScienceQA 缓存（retrieval_cache.json /
+   vision_facts.jsonl / query_embeddings / config_scores / jev_responses），
+   新数据集从零重建；只复用 relay_token。
 
-原空间（864）里的 text_weight / rrf_k 被固定为 pharma(chunk=512) 上的中位取值，
-换出 chunk_size 这一维。**这是一个假设**：两个旋钮原先正是因为在 chunk=512 下
-实测 η²≈0.003/0.008 才被判为摆设，而 chunk 变细会改变 RRF 的排名分布。
+奖励口径不变：JEV Jev_AO 对固定题的 P(supported) 均值，图像先由
+Qwen3.7 Flash 在不知道问题的情况下转写。同一 seed 的六次重复共用同一份
+冻结配置评分缓存，跨重复差异只来自初始批次。
 
-实现方式
-========
-`rq1_memory_v2_chunk_dim.install()` 在进程内替换 `search` 模块的属性（以及 `six`
-绑定死的 LLMController / SYSTEM_PROMPT）。不修改任何共享模块，scienceqa 的 864
-那条线保持字节级可复现，随时可回退。
-
-索引
-====
-文本索引随 chunk_size 变化，图像索引与切分无关（跨 chunk 复用，不重复打图像索引）：
-
-    chunk=512 → <prefix>_text_embedding_v2_<backend>          （既有索引，无 _c512 后缀）
-    chunk=其他 → <prefix>_c<chunk>_text_embedding_v2_<backend>
-    图像       → <prefix>_image_embedding_v2_<backend>
-
-检索缓存的文本两路按键 `{backend}:c{chunk}:{query_key}` 隔离（否则新的 chunk
-配置会静默复用 chunk=512 的文本排名）；图像一路按 `{backend}:image:{query_key}`
-缓存。schema 升版后旧缓存自动失效。
-
-注意：本脚本会消耗付费 JEV 额度。`--plan-only` 与 `--validate-only` 均不调 JEV。
+注意：本脚本会消耗付费 JEV 额度。
 """
 
 from __future__ import annotations
@@ -39,87 +27,178 @@ import argparse
 import json
 import logging
 import os
+import shutil
 import time
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 
-from mgrs.pipeline import jev_initial_batch_repeat6 as six
-from mgrs.pipeline import run_layout as layout
-from mgrs.pipeline import rq1_memory_v2_chunk_dim as chunk
-from mgrs.pipeline import rq1_memory_v2_jit_random as search
-from mgrs.pipeline.jev_ao_format_v1_paired import (
-    DATASETS,
-    DEFAULT_DATASETS_ROOT,
-    DEFAULT_RELAY_TOKEN_FROM,
-    ensure_relay_token,
-    load_queries,
-    resolve_dataset,
-)
+from chart.pipeline import jev_initial_batch_repeat6 as six
+from chart.pipeline import run_layout as layout
+from chart.pipeline import rq1_memory_v2_jit_random as search
 
-LOG = logging.getLogger("jev_ao_format_v1_chunk_paired")
+LOG = logging.getLogger("jev_ao_format_v1_paired")
 PROJECT = Path(__file__).resolve().parents[2]
+# AO 格式语料根目录（数据集正文/图像所在目录）。默认 <repo>/datasets/ao_ready_v1，
+# 可用 CHART_AO_CORPUS_ROOT 覆盖；单个数据集再用 CHART_AO_CORPUS_DIR_<NAME> 指定，
+# 例如 CHART_AO_CORPUS_DIR_TECHSLIDES=/data/ao_ready_v1/techslides/data。
+DEFAULT_DATASETS_ROOT = Path(
+    os.environ.get("CHART_AO_CORPUS_ROOT", "").strip()
+    or (PROJECT / "datasets" / "ao_ready_v1")
+)
+# 历史 relay 部署的 token 来源 run；默认不使用（判题走 --jev-api 直连）。
+DEFAULT_RELAY_TOKEN_FROM = os.environ.get("CHART_RELAY_TOKEN_FROM", "").strip()
 
-# 图像转写（Qwen）只依赖图片内容，与搜索配置无关，可跨「同数据集」的 run 复用。
-# 本实验的图片集与 20261020 paired(seed67) 一致（实测 874 张里 873 张命中），
-# 若不预置就会冷启动把 ~1088 张图重转一遍（约 90 分钟），故默认从该 run 继承。
-DEFAULT_VISION_CACHE_FROM = "20261020_jev_ao_paired_pharmaceuticals_q50_budget30_seed67"
+
+def _corpus_dir(name: str, relative: str) -> str:
+    """数据集语料目录：优先取 per-dataset 环境变量，否则拼在语料根目录下。"""
+    override = os.environ.get(f"CHART_AO_CORPUS_DIR_{name.upper()}", "").strip()
+    return override or str(DEFAULT_DATASETS_ROOT / relative)
 
 
-def _resolve_run_dir(name: str) -> Path:
-    path = Path(name)
-    return path if path.is_absolute() else PROJECT / "runs" / path
+def _index_prefix(name: str, default: str) -> str:
+    """ES 索引前缀：自建索引时用 CHART_INDEX_PREFIX_<NAME> 覆盖数据集自带前缀。"""
+    return os.environ.get(f"CHART_INDEX_PREFIX_{name.upper()}", "").strip() or default
+
+# 论文定版用的三个知识库。每个条目：
+#   dir          语料目录（相对语料根目录，或用 CHART_AO_CORPUS_DIR_<NAME> 给绝对路径）
+#   index_prefix ES 索引前缀；apply_backends() 据此拼出
+#                <prefix>_text_embedding_v2_<backend> / <prefix>_image_embedding_v2_<backend>
+#   pages        语料页数（用于启动前的索引体量自检）
+#   qa_file      语料目录内的默认题集；定版实验用 --qa-file 显式指定精选 50 题（见 scripts/）
+# 注：pharmaceuticals 的语料来自另一批交接包（目录内直接是 corpus.json，无 data/ 子目录），
+# 与 finance_en / techslides 不同根，通常需要单独设 CHART_AO_CORPUS_DIR_PHARMACEUTICALS。
+DATASETS: dict[str, dict[str, Any]] = {
+    "pharmaceuticals": {
+        "dir": _corpus_dir("pharmaceuticals", "pharmaceuticals"),
+        "index_prefix": _index_prefix("pharmaceuticals", "aoexplore_pharmaceuticals_p2313"),
+        "pages": 2313,
+        "qa_file": "qa_search.json",
+    },
+    "finance_en": {
+        "dir": _corpus_dir("finance_en", "finance_en/data"),
+        "index_prefix": _index_prefix("finance_en", "chart_ao_finance_en_b36d2b08b6fc_handoff_v1"),
+        "pages": 2942,
+        "qa_file": "qa_search.json",
+    },
+    "techslides": {
+        "dir": _corpus_dir("techslides", "techslides/data"),
+        "index_prefix": _index_prefix("techslides", "chart_ao_techslides_b86435175991_handoff_v1"),
+        "pages": 1963,
+        "qa_file": "qa_search.json",
+    },
+}
 
 
-def seed_vision_cache(run: Path, source: str) -> int:
-    """把同数据集 run 的 vision_facts.jsonl 并入本 run（只补缺，不覆盖）。
+def apply_backends(prefix: str) -> None:
+    """把 search.BACKENDS 的索引名改写到目标数据集前缀（dims/model_path 不变）。"""
+    for backend, info in search.BACKENDS.items():
+        info["text_index"] = f"{prefix}_text_embedding_v2_{backend}"
+        info["image_index"] = f"{prefix}_image_embedding_v2_{backend}"
 
-    只追加目标里没有的 image_sha256，避免同哈希不同描述触发 load_jsonl 的
-    冲突校验；model / prompt_version 与当前常量不符的行直接跳过。
+
+def validate_dataset_indices(es: Any, prefix: str) -> dict[str, Any]:
+    """数据集无关校验：索引存在 + 非空 + dims 与 BACKENDS 声明一致。
+
+    刻意不校验精确文档数：文本索引按各 backend 的分词器切 chunk，文档数本就
+    不同（pharma 实测 3118/3182/3182），图像索引等于页数。
     """
-    if not source.strip():
-        return 0
-    src_dir = _resolve_run_dir(source)
-    src = src_dir / "vision_facts.jsonl"
-    target = run / "vision_facts.jsonl"
-    if not src.is_file():
-        LOG.warning("vision 缓存源缺 vision_facts.jsonl，跳过预置: %s", src)
-        return 0
-    have: dict[str, Any] = {}
-    if target.is_file():
-        for line in target.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if line:
-                row = json.loads(line)
-                have[str(row["image_sha256"])] = row
-    added = skipped = 0
-    with target.open("a", encoding="utf-8") as handle:
-        for line in src.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            row = json.loads(line)
-            digest = str(row["image_sha256"])
-            if digest in have:
-                continue
-            if (row.get("model") != six.VISION_MODEL
-                    or row.get("prompt_version") != six.VISION_PROMPT_VERSION):
-                skipped += 1
-                continue
-            handle.write(json.dumps(row, ensure_ascii=False, separators=(",", ":")) + "\n")
-            have[digest] = row
-            added += 1
-        handle.flush()
-        os.fsync(handle.fileno())
-    LOG.info("vision 缓存预置 源=%s 追加=%s 跳过=%s 合计=%s",
-             src_dir.name, added, skipped, len(have))
-    return added
+    checked: dict[str, Any] = {}
+    for backend, info in search.BACKENDS.items():
+        for kind in ("text_index", "image_index"):
+            name = str(info[kind])
+            if not es.indices.exists(index=name):
+                raise RuntimeError(
+                    f"缺少索引 {kind}[{backend}]: {name}（确认已建库且前缀正确）"
+                )
+            count = int(es.count(index=name)["count"])
+            if count <= 0:
+                raise RuntimeError(f"索引为空 {kind}[{backend}]: {name}")
+            dims = int(
+                es.indices.get_mapping(index=name)[name]["mappings"]["properties"][
+                    "embedding"
+                ]["dims"]
+            )
+            if dims != int(info["dims"]):
+                raise RuntimeError(f"dims 不一致 {name}: {dims} != {info['dims']}")
+            checked[name] = {
+                "backend": backend,
+                "kind": kind,
+                "count": count,
+                "dims": dims,
+            }
+    return checked
+
+
+def load_queries(
+    dataset_dir: Path, qa_file: str
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """读官方划分的 qa_search.json 与 corpus.json，并做最小结构校验。"""
+    qa_path = dataset_dir / qa_file
+    corpus_path = dataset_dir / "corpus.json"
+    if not qa_path.is_file():
+        raise RuntimeError(f"缺少 QA 文件: {qa_path}")
+    if not corpus_path.is_file():
+        raise RuntimeError(f"缺少语料文件: {corpus_path}")
+    qa = json.loads(qa_path.read_text(encoding="utf-8"))
+    corpus = json.loads(corpus_path.read_text(encoding="utf-8"))
+    if not isinstance(qa, list) or not isinstance(corpus, list):
+        raise ValueError("qa/corpus 顶层必须是 list")
+    for row in qa:
+        if not str(row.get("id") or "").strip():
+            raise ValueError(f"QA 行缺少 id: {row}")
+        if not str(row.get("query") or "").strip():
+            raise ValueError(f"QA 行缺少 query: {row.get('id')}")
+        if not search.reference_for(row).strip():
+            raise ValueError(f"QA 行缺少参考答案: {row.get('id')}")
+    return qa, corpus
+
+
+def ensure_relay_token(run: Path, source: str) -> None:
+    target = run / "relay_token"
+    if target.exists():
+        return
+    src = Path(source)
+    if not src.is_absolute():
+        src = PROJECT / "runs" / source
+    tried = [src, src / "relay_token"] if src.is_dir() else [src]
+    for candidate in tried:
+        if candidate.is_file():
+            shutil.copy2(candidate, target)
+            LOG.info("relay_token 复制自 %s", candidate)
+            return
+    raise RuntimeError(
+        f"找不到 relay_token，已尝试 {[str(t) for t in tried]}；"
+        "用 --relay-token-from 指定来源，或改用 --jev-api 直连模式"
+    )
+
+
+def resolve_dataset(args: argparse.Namespace) -> dict[str, Any]:
+    if args.dataset:
+        spec = dict(DATASETS[args.dataset])
+        spec["name"] = args.dataset
+        spec["dataset_dir"] = Path(args.datasets_root) / spec["dir"]
+        if args.qa_file:
+            spec["qa_file"] = args.qa_file
+    else:
+        if not args.dataset_dir or not args.index_prefix:
+            raise SystemExit("需要 --dataset，或同时提供 --dataset-dir 与 --index-prefix")
+        spec = {
+            "name": Path(args.dataset_dir).name,
+            "dataset_dir": Path(args.dataset_dir),
+            "index_prefix": args.index_prefix,
+            "qa_file": args.qa_file or "qa_search.json",
+            "pages": None,
+        }
+    if not Path(spec["dataset_dir"]).is_dir():
+        raise SystemExit(f"数据集目录不存在: {spec['dataset_dir']}")
+    return spec
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="AO 格式包 chunk_size 搜索维度实验（JEV 冻结奖励，288 空间）"
+        description="AO 格式包六策略配对对比实验（JEV 冻结奖励）"
     )
     parser.add_argument("--dataset", choices=sorted(DATASETS), default=None,
                         help="预置数据集；与 --dataset-dir/--index-prefix 二选一")
@@ -143,47 +222,26 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--jev-api-url", default=six.JEV_API_URL)
     parser.add_argument("--jev-api-key-env", default=six.JEV_API_KEY_ENV)
     parser.add_argument("--relay-token-from", default=DEFAULT_RELAY_TOKEN_FROM)
-    parser.add_argument("--vision-cache-from", default=DEFAULT_VISION_CACHE_FROM,
-                        help="同数据集 run（目录名或绝对路径），从中补齐 "
-                             "vision_facts.jsonl 转写缓存；置空则冷启动从头转写")
-    parser.add_argument("--chunk-values", default="",
-                        help="收窄 chunk 维度（逗号分隔，须是 %s 的子集），"
-                             "用于小规模探针" % ",".join(str(c) for c in chunk.ALL_BUILT_CHUNKS))
     parser.add_argument("--validate-only", action="store_true",
-                        help="只校验搜索空间与索引，不建 run、不调 JEV，然后退出")
+                        help="只校验索引与题集，不建 run、不调 JEV，然后退出")
     parser.add_argument("--plan-only", action="store_true",
-                        help="写 manifest/preflight 并打印初始批次，不调 JEV")
+                        help="写 manifest/preflight 并打印六批初始配置，不调 JEV")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-
-    # 必须在任何 search.all_configs() / six.initial_batches() 之前装空间。
-    if args.chunk_values.strip():
-        selected = chunk.set_chunk_values(
-            [int(x) for x in args.chunk_values.split(",") if x.strip() != ""]
-        )
-        LOG.info("chunk 维度收窄为 %s", list(selected))
-    space = chunk.install(six_module=six)
-    space_check = chunk.verify_space()
-    LOG.info("搜索空间 %s 候选数=%s chunk=%s",
-             space["space_version"], space["candidate_count"], list(chunk.CHUNK_VALUES))
-
     spec = resolve_dataset(args)
     dataset_dir: Path = spec["dataset_dir"]
     prefix: str = spec["index_prefix"]
 
-    # 文本索引随 chunk 变化，这里同时把 BACKENDS 的占位名改写到目标数据集前缀。
-    text_indices = chunk.apply_backends(prefix)
+    apply_backends(prefix)
     qa, corpus = load_queries(dataset_dir, spec["qa_file"])
     query_count = len(qa)
 
     candidates = search.all_configs()
-    if len(candidates) != int(space["candidate_count"]):
-        raise RuntimeError(
-            f"搜索空间变化: {len(candidates)} != {space['candidate_count']}"
-        )
+    if len(candidates) != 864:
+        raise RuntimeError(f"搜索空间变化: {len(candidates)} != 864")
 
     policies = [p.strip() for p in args.policies.split(",") if p.strip()]
     for policy in policies:
@@ -197,16 +255,15 @@ def main() -> None:
 
     es = search.es_client(args.es_url)
     try:
-        indices = chunk.validate_indices(es, prefix)
-        LOG.info("索引校验通过: %s 个索引", len(indices))
+        indices = validate_dataset_indices(es, prefix)
+        LOG.info("索引校验通过: %s", json.dumps(
+            {k: v["count"] for k, v in indices.items()}, ensure_ascii=False))
         base = {
             "dataset": spec["name"],
             "dataset_dir": str(dataset_dir),
             "index_prefix": prefix,
             "corpus_pages": len(corpus),
             "query_count": query_count,
-            "search_space": space,
-            "space_check": space_check,
             "index_doc_counts": {k: v["count"] for k, v in indices.items()},
         }
         if args.validate_only:
@@ -220,11 +277,9 @@ def main() -> None:
             [search.QueryEmbeddingCache.query_key(row) for row in qa])
 
         budget = args.rounds * args.per_round
-        narrowed = tuple(chunk.CHUNK_VALUES) != tuple(chunk.ALL_BUILT_CHUNKS)
-        chunk_tag = ("_c" + "-".join(str(c) for c in chunk.CHUNK_VALUES)) if narrowed else ""
         run_id = args.run_id or (
-            f"{time.strftime('%Y%m%d')}_jev_ao_chunk_paired_{spec['name']}"
-            f"_q{query_count}_budget{budget}{chunk_tag}"
+            f"{time.strftime('%Y%m%d')}_jev_ao_paired_{spec['name']}"
+            f"_q{query_count}_budget{budget}"
         )
         run = Path(args.runs_dir) / run_id
         run.mkdir(parents=True, exist_ok=True)
@@ -241,8 +296,7 @@ def main() -> None:
 
         manifest = {
             "experiment": (
-                "AO 格式包（pharmaceuticals）chunk_size 搜索维度实验："
-                "搜索空间换成 text_top_k × image_top_k × chunk_size × embedding_backend，"
+                "AO 格式包（pharmaceuticals / industrial_subset_v1）六策略配对对比："
                 "同一 seed、六次重复、初始五步不同，JEV 冻结奖励"
             ),
             "run_id": run_id,
@@ -256,19 +310,6 @@ def main() -> None:
                 "corpus_pages": len(corpus),
                 "query_count": query_count,
                 "sample_hash": sample_hash,
-            },
-            "search_space": space,
-            "chunk_values": list(chunk.CHUNK_VALUES),
-            "text_indices": text_indices,
-            "image_indices": {
-                backend: chunk.image_index_name(prefix, backend)
-                for backend in chunk.EMBEDDING_VALUES
-            },
-            "retrieval_cache": {
-                "schema": chunk.SPACE_VERSION,
-                "text_key_template": "{backend}:c{chunk}:{query_key}",
-                "image_key_template": "{backend}:image:{query_key}",
-                "image_reused_across_chunks": True,
             },
             "base_seed": args.seed,
             "repeats": args.repeats,
@@ -303,16 +344,10 @@ def main() -> None:
                 "JevEvaluator 的 text_hit_at_k/image_hit_at_k 沿用 source_id == query_id "
                 "判据，在本数据集的 q:<n> / p:<n> 命名空间下恒为 0，不具召回含义，"
                 "请勿当作 Recall 使用。"
-                f"本实验用 chunk_size 替换了 text_weight / rrf_k 两个维度："
-                f"text_weight={chunk.FIXED_TEXT_WEIGHT}、rrf_k={chunk.FIXED_RRF_K} 被固定为 "
-                "pharma(chunk=512) 上的中位取值，这是一个**假设**——两个旋钮原先正是在 "
-                "chunk=512 下被实测判定为摆设的，chunk 变细会改变 RRF 的排名分布，"
-                "因此跨 chunk 的比较应理解为「该设置下」的效应。"
-                "chunk=512 的文本索引沿用既有命名（无 _c512 后缀）。"
             ),
         }
         # plan-only 预演必须纯只读：若先写了 manifest/preflight/query_sample，
-        # 之后正式跑会因 save_once 的字节级幂等校验不同而直接失败。
+        # 之后正式跑会因 save_once 的字节级幂等校验不同而直接失败（本 run 已两次踩到）。
         if args.plan_only:
             print(json.dumps(
                 {"mode": "plan_only", **base, "run": str(run),
@@ -320,6 +355,8 @@ def main() -> None:
                 ensure_ascii=False, indent=2))
             return
         six.em.save_once(run / "manifest.json", manifest)
+        # 访问方式/代理属于运行环境，会随隧道或出口变化；
+        # 若放进 manifest，save_once 会因字节差异直接报错，故单列一个可覆盖文件。
         search.atomic_json(
             run / "run_info.json",
             {
@@ -330,8 +367,6 @@ def main() -> None:
                 "no_proxy": os.environ.get("NO_PROXY", ""),
                 "es_url": args.es_url,
                 "embedding_device": args.embedding_device,
-                "space_version": chunk.SPACE_VERSION,
-                "chunk_values": list(chunk.CHUNK_VALUES),
                 "run_started_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
             },
         )
@@ -340,7 +375,6 @@ def main() -> None:
             "repeats": args.repeats,
             "policies": policies,
             "budget_per_policy": budget,
-            "search_space": space,
             "initial_batch_seeds": init_seeds,
             "repeats_distinct": True,
             "initial_batch_config_ids": manifest["initial_batch_config_ids"],
@@ -380,11 +414,10 @@ def main() -> None:
 
         embedding = search.QueryEmbeddingCache(
             run, qa, args.embedding_device, args.embedding_batch_size)
-        for backend in chunk.EMBEDDING_VALUES:
+        for backend in search.EMBEDDING_VALUES:
             embedding.ensure(backend)
-        retrieval = chunk.ChunkRetrievalCache(
-            run / "retrieval_cache.json", es, embedding, prefix)
-        seed_vision_cache(run, args.vision_cache_from)
+        retrieval = search.RetrievalCache(
+            run / "retrieval_cache.json", es, embedding)
         vision = six.VisionCache(run)
         cache_root = layout.cache_dir(run)
         evaluator = six.FrozenConfigEvaluator(
@@ -442,8 +475,6 @@ def main() -> None:
                 "base_seed": args.seed,
                 "repeats": args.repeats,
                 "policies": policies,
-                "search_space": space,
-                "chunk_values": list(chunk.CHUNK_VALUES),
                 "reward_key": six.REWARD_KEY,
                 "reward_schema": six.REWARD_SCHEMA,
                 "initial_batch_seeds": init_seeds,

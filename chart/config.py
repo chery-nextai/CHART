@@ -1,7 +1,7 @@
 """全局配置：全部项都由环境变量提供，仓库内不写死任何机器相关路径或密钥。
 
 完整变量清单与示例见仓库根的 .env.example。判题（RDS）端点不在此处，
-见 mgrs/judge_client.py。
+见 chart/judge_client.py。
 """
 
 from __future__ import annotations

@@ -8,8 +8,8 @@ import numpy as np
 from elasticsearch import Elasticsearch, helpers
 from sentence_transformers import SentenceTransformer
 
-from mgrs import config as settings
-from mgrs.rag_pipeline.config import PipelineConfig
+from chart import config as settings
+from chart.rag_pipeline.config import PipelineConfig
 
 logger = logging.getLogger("ao_explore.text_retrieval")
 

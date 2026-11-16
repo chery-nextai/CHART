@@ -20,12 +20,12 @@ from typing import Any
 
 import numpy as np
 
-from mgrs.metrics.token_f1 import token_f1
-from mgrs.environment.runner import answer_for_scoring
-from mgrs.pipeline import rq1_fixed_eval_paired5 as paired
-from mgrs.pipeline import rq1_memory_v2_jit_random as search
-from mgrs.environment.data import load_dataset
-from mgrs.rag_pipeline.llm import MultimodalLLM, _evidence_text
+from chart.metrics.token_f1 import token_f1
+from chart.environment.runner import answer_for_scoring
+from chart.pipeline import rq1_fixed_eval_paired5 as paired
+from chart.pipeline import rq1_memory_v2_jit_random as search
+from chart.environment.data import load_dataset
+from chart.rag_pipeline.llm import MultimodalLLM, _evidence_text
 
 
 LOGGER = logging.getLogger("ao_explore.answer_f1_smoke")

@@ -14,9 +14,9 @@
 # 图像转写可用 VISION_FROM=<run_id> 复用（按 image_sha256 去重）；不设置则现转写。
 #
 # 需要先在 .env（或环境）里配好判题与 LLM 端点，见 .env.example：
-#   MGRS_JUDGE_BACKEND / MGRS_JUDGE_API_URL / MGRS_JUDGE_MODEL / <密钥变量>
-#   LLM_API_BASE / LLM_API_KEY / MGRS_VISION_MODEL / MGRS_DECISION_MODEL
-#   AO_EXPLORE_ES_URL、MGRS_AO_CORPUS_DIR_<DATASET>、MGRS_EMBED_MODEL_*
+#   CHART_JUDGE_BACKEND / CHART_JUDGE_API_URL / CHART_JUDGE_MODEL / <密钥变量>
+#   LLM_API_BASE / LLM_API_KEY / CHART_VISION_MODEL / CHART_DECISION_MODEL
+#   AO_EXPLORE_ES_URL、CHART_AO_CORPUS_DIR_<DATASET>、CHART_EMBED_MODEL_*
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -26,7 +26,7 @@ DATASET="${DATASET:-techslides}"
 # ── 单实例硬锁 ───────────────────────────────────────────────────────────────
 # 同一 run 目录被两个进程并发写会产生重复 trajectory 行与 conflicting cached row，
 # 因此用 mkdir 原子锁：锁已存在直接退出，不会启动 python。
-LOCKDIR="/tmp/mgrs_${DATASET}.$(printf '%s' "${RUN_ID:-default}" | md5sum | cut -c1-12).lockdir"
+LOCKDIR="/tmp/chart_${DATASET}.$(printf '%s' "${RUN_ID:-default}" | md5sum | cut -c1-12).lockdir"
 if ! mkdir "$LOCKDIR" 2>/dev/null; then
   echo "[abort] $(date '+%F %T') 已有实例持锁 $LOCKDIR，本次启动放弃" >&2
   exit 3
@@ -90,11 +90,11 @@ mkdir -p "$RUN_DIR" logs
 # 目录续跑会静默命中旧模型的应答缓存（表现为「换了模型分数一点没变」）。
 # 所以这里把 manifest 里记录的判题模型与当前配置比对，不一致就直接拒绝启动。
 MANIFEST="$RUN_DIR/manifest.json"
-CURRENT_JUDGE="${MGRS_JUDGE_MODEL:-}"
+CURRENT_JUDGE="${CHART_JUDGE_MODEL:-}"
 if [[ -f "$MANIFEST" && -n "$CURRENT_JUDGE" && "${ALLOW_JUDGE_MISMATCH:-0}" != "1" ]]; then
   RECORDED_JUDGE="$("$PYTHON" -c 'import json,sys;print(json.load(open(sys.argv[1],encoding="utf-8")).get("jev_model",""))' "$MANIFEST")"
   if [[ -n "$RECORDED_JUDGE" && "$RECORDED_JUDGE" != "$CURRENT_JUDGE" ]]; then
-    echo "[abort] $MANIFEST 记录判题模型=$RECORDED_JUDGE，当前 MGRS_JUDGE_MODEL=$CURRENT_JUDGE。" >&2
+    echo "[abort] $MANIFEST 记录判题模型=$RECORDED_JUDGE，当前 CHART_JUDGE_MODEL=$CURRENT_JUDGE。" >&2
     echo "        换判题模型/后端 = 换评分基线，续跑会静默命中旧应答缓存；请换一个新的 RUN_ID。" >&2
     echo "        确知后果要强行续跑：ALLOW_JUDGE_MISMATCH=1" >&2
     exit 4
@@ -111,10 +111,10 @@ if [[ -n "$STRATEGIES" ]]; then
 fi
 
 echo "[run] $(date '+%F %T') dataset=$DATASET run_id=$RUN_ID repeats=$REPEATS seed=$SEED"
-echo "[run] reward=RDS scheme=dqcr gamma=$REDUNDANCY_GAMMA mode=$REDUNDANCY_MODE es=$ES_URL"
-echo "[run] judge backend=${MGRS_JUDGE_BACKEND:-jev} model=${CURRENT_JUDGE:-<unset>}"
+echo "[run] reward=RDS scheme=rds gamma=$REDUNDANCY_GAMMA mode=$REDUNDANCY_MODE es=$ES_URL"
+echo "[run] judge backend=${CHART_JUDGE_BACKEND:-jev} model=${CURRENT_JUDGE:-<unset>}"
 
-"$PYTHON" -u -m mgrs.pipeline.jev_ao_format_v1_chunk_single \
+"$PYTHON" -u -m chart.pipeline.jev_ao_format_v1_chunk_single \
   --dataset "$DATASET" \
   --qa-file "$QA_FILE" \
   --run-id "$RUN_ID" \

@@ -31,10 +31,10 @@ from typing import Any, Iterable
 import numpy as np
 from elasticsearch import Elasticsearch
 
-from mgrs import config as settings
-from mgrs.controllers.llm_controller import LLMController
-from mgrs.environment.data import load_dataset
-from mgrs.rag_pipeline.llm import MultimodalLLM, RETRIEVAL_JUDGE_PROMPT_VERSION, RetrievalJudgeResult
+from chart import config as settings
+from chart.controllers.llm_controller import LLMController
+from chart.environment.data import load_dataset
+from chart.rag_pipeline.llm import MultimodalLLM, RETRIEVAL_JUDGE_PROMPT_VERSION, RetrievalJudgeResult
 
 
 LOGGER = logging.getLogger("ao_explore.rq1_memory_v2")
@@ -68,19 +68,19 @@ IMAGE_RAW_TOP_K = 20
 
 # 每个后端的编码器权重目录（本地离线加载）。默认在仓库根的 models/ 下按名字查找，
 # 可用环境变量覆盖，避免把机器相关的绝对路径写进代码：
-#   MGRS_EMBED_MODEL_ROOT            权重公共根目录，默认 <repo>/models
-#   MGRS_EMBED_MODEL_DIR_<BACKEND>   单个后端的权重目录（后端名大写）
-#   例：MGRS_EMBED_MODEL_DIR_QWEN3_VL_2B=/models/Qwen3-VL-Embedding-2B
+#   CHART_EMBED_MODEL_ROOT            权重公共根目录，默认 <repo>/models
+#   CHART_EMBED_MODEL_DIR_<BACKEND>   单个后端的权重目录（后端名大写）
+#   例：CHART_EMBED_MODEL_DIR_QWEN3_VL_2B=/models/Qwen3-VL-Embedding-2B
 # 注：AO 格式数据集跑之前会用 apply_backends() 按数据集覆盖 text_index/image_index，
 # 这里的索引名只是旧 ScienceQA 语料的默认值。
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 _EMBED_MODEL_ROOT = Path(
-    os.environ.get("MGRS_EMBED_MODEL_ROOT", "").strip() or (_REPO_ROOT / "models")
+    os.environ.get("CHART_EMBED_MODEL_ROOT", "").strip() or (_REPO_ROOT / "models")
 )
 
 
 def _embed_model_dir(backend: str, default_name: str) -> str:
-    override = os.environ.get(f"MGRS_EMBED_MODEL_DIR_{backend.upper()}", "").strip()
+    override = os.environ.get(f"CHART_EMBED_MODEL_DIR_{backend.upper()}", "").strip()
     return override or str(_EMBED_MODEL_ROOT / default_name)
 
 

@@ -41,18 +41,18 @@ from typing import Any
 import numpy as np
 import requests
 
-from mgrs import judge_client
-from mgrs.controllers.llm_controller import LLMController, SYSTEM_PROMPT
-from mgrs.controllers.raise_baseline_controllers import (
+from chart import judge_client
+from chart.controllers.llm_controller import LLMController, SYSTEM_PROMPT
+from chart.controllers.raise_baseline_controllers import (
     CoordinateDescentController,
     TPEController,
 )
-from mgrs.pipeline import dqcr_reward as reward
-from mgrs.pipeline import run_layout as layout
-from mgrs.pipeline import rq1_answer_em_qaall_clean_paired as em
-from mgrs.pipeline import rq1_fixed_eval_paired5 as paired
-from mgrs.pipeline import rq1_memory_v2_jit_random as search
-from mgrs.rag_pipeline.llm import MultimodalLLM
+from chart.pipeline import rds_reward as reward
+from chart.pipeline import run_layout as layout
+from chart.pipeline import rq1_answer_em_qaall_clean_paired as em
+from chart.pipeline import rq1_fixed_eval_paired5 as paired
+from chart.pipeline import rq1_memory_v2_jit_random as search
+from chart.rag_pipeline.llm import MultimodalLLM
 
 LOG = logging.getLogger("jev_initial_batch_repeat6")
 PROJECT = Path(__file__).resolve().parents[2]
@@ -61,7 +61,7 @@ DEFAULT_RUN_ID = "20261015_jev_initial_batch_repeat6_q50_budget30"
 DEFAULT_CACHE_SOURCE = "20261012_jev_support_6seed_no_rules_llm_q50_budget30"
 ALL_POLICIES = ("jit", "jit_no_rules", "random", "llm", "coordinate_descent", "tpe")
 REWARD_KEY = "mean_jev_support"
-# 评分口径为 RDS（双题复合判题奖励），题面与聚合见 mgrs/pipeline/dqcr_reward.py。
+# 评分口径为 RDS（双题复合判题奖励），题面与聚合见 chart/pipeline/rds_reward.py。
 # 两个 schema 有明确分工：
 #   FINGERPRINT_SCHEMA —— 进 JEV 请求指纹（JevEvaluator.fingerprint）。只描述"发出去的请求"，
 #     所以**不含 γ/mode**：换聚合参数不改请求，应答缓存全命中，γ 扫描零调用。
@@ -75,17 +75,17 @@ JEV_QUESTIONS = _RESOLVED_REWARD.questions
 REWARD_DEFINITION = _RESOLVED_REWARD.definition
 REDUNDANCY_GAMMA = _RESOLVED_REWARD.gamma
 REDUNDANCY_MODE = _RESOLVED_REWARD.mode
-VISION_MODEL = (os.environ.get("MGRS_VISION_MODEL") or "qwen3.7-flash").strip()
-DECISION_MODEL = (os.environ.get("MGRS_DECISION_MODEL") or "qwen3.8-max").strip()
+VISION_MODEL = (os.environ.get("CHART_VISION_MODEL") or "qwen3.7-flash").strip()
+DECISION_MODEL = (os.environ.get("CHART_DECISION_MODEL") or "qwen3.8-max").strip()
 # 判题后端（RDS 的判题器）全部走环境变量，仓库内不留内置端点或密钥：
-#   MGRS_JUDGE_BACKEND       jev（默认，原生网关协议）| openai_chat（OpenAI 兼容端点）
-#   MGRS_JUDGE_API_URL       判题端点（旧名 JEV_API_URL 仍可用）
-#   MGRS_JUDGE_MODEL         判题模型名（旧名 JEV_MODEL 仍可用）
-#   $MGRS_JUDGE_API_KEY_ENV  密钥所在环境变量名，默认 JEV_API_KEY
-# 详见 mgrs/judge_client.py 与 .env.example。
+#   CHART_JUDGE_BACKEND       jev（默认，原生网关协议）| openai_chat（OpenAI 兼容端点）
+#   CHART_JUDGE_API_URL       判题端点（旧名 JEV_API_URL 仍可用）
+#   CHART_JUDGE_MODEL         判题模型名（旧名 JEV_MODEL 仍可用）
+#   $CHART_JUDGE_API_KEY_ENV  密钥所在环境变量名，默认 JEV_API_KEY
+# 详见 chart/judge_client.py 与 .env.example。
 # 注意：JEV_MODEL 会写进 manifest，并由 parse_jev_response 与应答的 model 字段严格比对。
 # 换判题模型即等于换评分基线，旧 run 的 config_scores 不可与新 run 混算；同时必须一起换
-# MGRS_JUDGE_SCHEMA_TAG（请求指纹不含 URL 与模型名，否则新旧后端缓存会互相静默命中）。
+# CHART_JUDGE_SCHEMA_TAG（请求指纹不含 URL 与模型名，否则新旧后端缓存会互相静默命中）。
 JEV_MODEL = judge_client.JUDGE_MODEL
 # 长上下文开关头：判题证据可达 6 万+ 字符，部分网关需显式放开窗口才不报
 # max_tokens_exceeded。未知请求头会被其他网关忽略，故默认始终携带。
@@ -100,7 +100,7 @@ VISION_PROMPT_VERSION = "image_facts_no_question_v1"
 # **但聚合后仍只有一个标量出口**——REWARD_KEY 仍是 `mean_jev_support`，
 # 控制器、轨迹、manifest、下游统计链路一字不改。
 RELAY_URL = (
-    os.environ.get("MGRS_RELAY_URL")
+    os.environ.get("CHART_RELAY_URL")
     or os.environ.get("RELAY_URL")
     or "http://127.0.0.1:17654/jev"
 ).strip()
@@ -108,17 +108,17 @@ JEV_API_URL = judge_client.JUDGE_API_URL
 JEV_API_KEY_ENV = judge_client.JUDGE_API_KEY_ENV
 
 
-# 判题传输层统一收敛到 mgrs/judge_client.py（原生网关 jev / OpenAI 兼容 openai_chat）。
+# 判题传输层统一收敛到 chart/judge_client.py（原生网关 jev / OpenAI 兼容 openai_chat）。
 # 这里保留旧类名做别名，使既有构造点 DirectAPITransport(url, key) 与 RelayTransport(url, token) 不变。
 RelayTransport = judge_client.RelayTransport
 DirectAPITransport = judge_client.JevGatewayTransport
 
 
 def make_transport(url: str = "", key: str = "") -> Any:
-    """按 MGRS_JUDGE_BACKEND 构造判题传输层。
+    """按 CHART_JUDGE_BACKEND 构造判题传输层。
 
     ``jev``（默认）走原生网关协议；``openai_chat`` 走任意 OpenAI 兼容
-    ``/chat/completions`` 端点（提示词渲染与应答映射见 mgrs/judge_client.py）。
+    ``/chat/completions`` 端点（提示词渲染与应答映射见 chart/judge_client.py）。
     两者产出的应答结构一致，因此指纹缓存与 γ 聚合链路完全复用。
     """
     endpoint = (url or JEV_API_URL).strip()
@@ -126,9 +126,9 @@ def make_transport(url: str = "", key: str = "") -> Any:
     missing = [
         label
         for label, value in (
-            ("MGRS_JUDGE_API_URL（或 --jev-api-url）", endpoint),
+            ("CHART_JUDGE_API_URL（或 --jev-api-url）", endpoint),
             (f"${JEV_API_KEY_ENV}", key),
-            ("MGRS_JUDGE_MODEL", JEV_MODEL),
+            ("CHART_JUDGE_MODEL", JEV_MODEL),
         )
         if not value
     ]
@@ -370,7 +370,7 @@ class JevEvaluator:
         }
         payload = {"model": JEV_MODEL, "state": state, "questions": JEV_QUESTIONS}
         # 判题端点在网络抖动时可能中断数分钟：保持同一份冻结请求并等待重连。
-        # 具体怎么发由传输层决定（原生网关 / OpenAI 兼容端点，见 mgrs/judge_client.py）。
+        # 具体怎么发由传输层决定（原生网关 / OpenAI 兼容端点，见 chart/judge_client.py）。
         response = None
         for attempt in range(30):
             if self.billing_failure.is_set():
@@ -581,7 +581,7 @@ class FrozenConfigEvaluator:
 
     @staticmethod
     def _fold(raw: float, redundancy: float) -> float:
-        """按当前 γ/mode 把原始分量折成聚合分（与 dqcr_reward.combine 同式）。"""
+        """按当前 γ/mode 把原始分量折成聚合分（与 rds_reward.combine 同式）。"""
         if REDUNDANCY_GAMMA == 0.0 or not redundancy:
             return float(raw)
         if REDUNDANCY_MODE == "scale":

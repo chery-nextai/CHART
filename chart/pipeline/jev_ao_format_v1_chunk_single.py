@@ -42,13 +42,13 @@ from typing import Any
 
 import numpy as np
 
-from mgrs.pipeline import jev_initial_batch_repeat6 as six
-from mgrs.pipeline import run_layout as layout
-from mgrs.pipeline import rq1_memory_v2_chunk_dim as chunk
-from mgrs.pipeline import rq1_memory_v2_chunk_single as single
-from mgrs.pipeline import rq1_memory_v2_jit_random as search
-from mgrs.pipeline.jev_ao_format_v1_chunk_paired import seed_vision_cache
-from mgrs.pipeline.jev_ao_format_v1_paired import (
+from chart.pipeline import jev_initial_batch_repeat6 as six
+from chart.pipeline import run_layout as layout
+from chart.pipeline import rq1_memory_v2_chunk_dim as chunk
+from chart.pipeline import rq1_memory_v2_chunk_single as single
+from chart.pipeline import rq1_memory_v2_jit_random as search
+from chart.pipeline.jev_ao_format_v1_chunk_paired import seed_vision_cache
+from chart.pipeline.jev_ao_format_v1_paired import (
     DATASETS,
     DEFAULT_DATASETS_ROOT,
     DEFAULT_RELAY_TOKEN_FROM,

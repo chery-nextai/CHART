@@ -19,9 +19,9 @@ from typing import Any
 
 import numpy as np
 
-from mgrs import config as settings
-from mgrs.environment.data import load_dataset
-from mgrs.pipeline import rq1_memory_v2_jit_random as experiment
+from chart import config as settings
+from chart.environment.data import load_dataset
+from chart.pipeline import rq1_memory_v2_jit_random as experiment
 
 
 LOGGER = logging.getLogger("ao_explore.rq1_fixed_eval_paired5")

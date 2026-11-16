@@ -8,7 +8,7 @@ from typing import Any
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
-from mgrs import config as settings
+from chart import config as settings
 
 
 def canonical_state_text(state: dict[str, Any]) -> str:

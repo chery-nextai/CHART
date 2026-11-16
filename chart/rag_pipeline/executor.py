@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 from typing import Any
-from mgrs import config as settings
+from chart import config as settings
 
-from mgrs import config as settings
-from mgrs.rag_pipeline.config import PipelineConfig
-from mgrs.rag_pipeline.image_retrieval import ImageRetriever
-from mgrs.rag_pipeline.llm import MultimodalLLM
-from mgrs.rag_pipeline.text_retrieval import TextRetriever
+from chart import config as settings
+from chart.rag_pipeline.config import PipelineConfig
+from chart.rag_pipeline.image_retrieval import ImageRetriever
+from chart.rag_pipeline.llm import MultimodalLLM
+from chart.rag_pipeline.text_retrieval import TextRetriever
 
 
 class MultimodalRAGPipeline:

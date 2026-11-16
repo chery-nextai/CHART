@@ -12,7 +12,7 @@ from typing import Any
 
 import requests
 
-from mgrs import config as settings
+from chart import config as settings
 
 
 logger = logging.getLogger("ao_explore.llm")

@@ -24,7 +24,7 @@ FIXED_RRF_K）。这是一个**必须写进 manifest 的假设**：两个旋钮�
 `search` / `experiment` / `paired` 在 `rq1_memory_v2_jit_random`、
 `rq1_fixed_eval_paired5`、`jev_initial_batch_repeat6` 里全部指向**同一个模块
 对象**，且这些模块都在调用时做 `search.X` 的属性查找。因此 `install()` 只替换
-该模块的属性即可全局生效：`mgrs/rag_pipeline/*`、`environment/runner.py`
+该模块的属性即可全局生效：`chart/rag_pipeline/*`、`environment/runner.py`
 以及 scienceqa 那条 864 配置的线都不受影响，随时可回退。
 
 刻意**不**改写 `search.RetrievalCache`：全仓有 14 处 `search.RetrievalCache(...)`
@@ -44,8 +44,8 @@ from typing import Any, Iterable
 
 import numpy as np
 
-from mgrs.controllers.llm_controller import LLMController
-from mgrs.pipeline import rq1_memory_v2_jit_random as search
+from chart.controllers.llm_controller import LLMController
+from chart.pipeline import rq1_memory_v2_jit_random as search
 
 
 LOGGER = logging.getLogger("ao_explore.rq1_memory_v2_chunk_dim")

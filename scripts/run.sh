@@ -25,7 +25,7 @@ extra=()
 [[ -n "$POLICIES" ]] && extra+=(--policies "$POLICIES")
 
 mkdir -p logs
-exec "${PYTHON:-python3}" -u -m mgrs.pipeline.jev_ao_format_v1_chunk_single \
+exec "${PYTHON:-python3}" -u -m chart.pipeline.jev_ao_format_v1_chunk_single \
   --dataset "$DATASET" \
   --repeats "$SEEDS" \
   --controller-steps "$STEPS" \

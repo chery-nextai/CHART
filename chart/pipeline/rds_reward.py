@@ -25,15 +25,15 @@ from typing import Any, NamedTuple
 
 # 历史口径标识：保留在 manifest.reward_scheme 中，避免旧运行记录失配。
 # 对外名称为 RDS（Redundancy-Discounted Support）。
-SCHEME = "dqcr"
+SCHEME = "rds"
 
 # schema 前缀必须带判题模型标识：`JevEvaluator.fingerprint()` 只含本 schema 串与请求
 # state，**不含 model 名或 URL**，所以换判题模型/后端而前缀不动时，旧应答会被静默命中
 # 复用（表现为"换了模型分数一点没变"）。
 # 默认 `jev_ao`（定版实验所用前缀，写在各 run 的 manifest.reward_fingerprint_schema 里）。
-# 换判题后端时请一并改前缀，例如 MGRS_JUDGE_SCHEMA_TAG=gpt4o_judge。
+# 换判题后端时请一并改前缀，例如 CHART_JUDGE_SCHEMA_TAG=gpt4o_judge。
 MODEL_SCHEMA_TAG = (
-    os.environ.get("MGRS_JUDGE_SCHEMA_TAG")
+    os.environ.get("CHART_JUDGE_SCHEMA_TAG")
     or os.environ.get("JEV_SCHEMA_MODEL_TAG")
     or "jev_ao"
 ).strip()

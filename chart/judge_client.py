@@ -4,13 +4,13 @@ RDS 奖励需要一个「判题模型」对每条 (问题, 候选答案, 检索�
 概率分布：``support``（三档）与 ``redundancy``（四档）。本模块把「这次请求怎么发」
 从评估链路里抽出来，使任何 OpenAI 兼容的对话模型都能充当判题器。
 
-后端由 ``MGRS_JUDGE_BACKEND`` 选择：
+后端由 ``CHART_JUDGE_BACKEND`` 选择：
 
 ``jev``（默认）
     原生 JEV 网关协议：``POST {model, state, questions}`` →
     ``{model, answers: {题名: {type, choice, probabilities}}}``。
-    端点/模型/密钥由 ``MGRS_JUDGE_API_URL``（兼容旧名 ``JEV_API_URL``）、
-    ``MGRS_JUDGE_MODEL``（旧名 ``JEV_MODEL``）、``MGRS_JUDGE_API_KEY_ENV`` 指定的
+    端点/模型/密钥由 ``CHART_JUDGE_API_URL``（兼容旧名 ``JEV_API_URL``）、
+    ``CHART_JUDGE_MODEL``（旧名 ``JEV_MODEL``）、``CHART_JUDGE_API_KEY_ENV`` 指定的
     环境变量（默认 ``JEV_API_KEY``）提供。
 
 ``openai_chat``
@@ -22,7 +22,7 @@ RDS 奖励需要一个「判题模型」对每条 (问题, 候选答案, 检索�
 .. warning::
    换判题后端 = 换评分基线，不同后端的分数不可混算。请求指纹只包含
    ``JEV_SCHEMA_MODEL_TAG`` 前缀与 state，**不含模型名或 URL**，所以切后端时务必
-   同时换一个 tag（例如 ``MGRS_JUDGE_SCHEMA_TAG=gpt4o_judge``），否则会静默命中
+   同时换一个 tag（例如 ``CHART_JUDGE_SCHEMA_TAG=gpt4o_judge``），否则会静默命中
    另一个后端的旧应答缓存。
 """
 
@@ -64,20 +64,20 @@ def _env_float(*names: str, default: float) -> float:
 
 
 # 判题端点的全部可配置项都走环境变量，仓库内不留任何默认地址或密钥。
-JUDGE_BACKEND = _env("MGRS_JUDGE_BACKEND", default="jev").lower()
-JUDGE_API_URL = _env("MGRS_JUDGE_API_URL", "JEV_API_URL")
-JUDGE_MODEL = _env("MGRS_JUDGE_MODEL", "JEV_MODEL")
-JUDGE_API_KEY_ENV = _env("MGRS_JUDGE_API_KEY_ENV", default="JEV_API_KEY")
-JUDGE_TIMEOUT = _env_float("MGRS_JUDGE_TIMEOUT", default=110.0)
-JUDGE_CHAT_PATH = _env("MGRS_JUDGE_CHAT_PATH", default="/chat/completions")
-JUDGE_TEMPERATURE = _env_float("MGRS_JUDGE_TEMPERATURE", default=0.0)
-JUDGE_MAX_TOKENS = int(_env_float("MGRS_JUDGE_MAX_TOKENS", default=1024))
+JUDGE_BACKEND = _env("CHART_JUDGE_BACKEND", default="jev").lower()
+JUDGE_API_URL = _env("CHART_JUDGE_API_URL", "JEV_API_URL")
+JUDGE_MODEL = _env("CHART_JUDGE_MODEL", "JEV_MODEL")
+JUDGE_API_KEY_ENV = _env("CHART_JUDGE_API_KEY_ENV", default="JEV_API_KEY")
+JUDGE_TIMEOUT = _env_float("CHART_JUDGE_TIMEOUT", default=110.0)
+JUDGE_CHAT_PATH = _env("CHART_JUDGE_CHAT_PATH", default="/chat/completions")
+JUDGE_TEMPERATURE = _env_float("CHART_JUDGE_TEMPERATURE", default=0.0)
+JUDGE_MAX_TOKENS = int(_env_float("CHART_JUDGE_MAX_TOKENS", default=1024))
 # 只有确认端点支持 response_format 时才开；不支持的端点会因未知字段报 400。
-JUDGE_JSON_MODE = _env("MGRS_JUDGE_JSON_MODE", default="0").lower() in {"1", "true", "yes", "on"}
-# 部分网关要求额外请求头（例如放开长上下文）。用 MGRS_JUDGE_EXTRA_HEADERS 传 JSON，
+JUDGE_JSON_MODE = _env("CHART_JUDGE_JSON_MODE", default="0").lower() in {"1", "true", "yes", "on"}
+# 部分网关要求额外请求头（例如放开长上下文）。用 CHART_JUDGE_EXTRA_HEADERS 传 JSON，
 # 默认空；未知请求头会被大多数网关忽略，但仍建议只在需要时开启。
 def _extra_headers() -> dict[str, str]:
-    raw = _env("MGRS_JUDGE_EXTRA_HEADERS")
+    raw = _env("CHART_JUDGE_EXTRA_HEADERS")
     if not raw:
         return {}
     try:
@@ -318,7 +318,7 @@ class OpenAIChatTransport:
         if response.status_code in {401, 403}:
             return False, f"HTTP {response.status_code} 鉴权被拒（key 无效或过期）"
         if response.status_code == 404:
-            return False, f"HTTP 404 端点不存在：{self.url}（检查 MGRS_JUDGE_API_URL / MGRS_JUDGE_CHAT_PATH）"
+            return False, f"HTTP 404 端点不存在：{self.url}（检查 CHART_JUDGE_API_URL / CHART_JUDGE_CHAT_PATH）"
         return True, f"HTTP {response.status_code}"
 
     def post(self, payload: dict[str, Any], timeout: float | None = None) -> JudgeResponse:
@@ -417,9 +417,9 @@ def build_transport(
         missing = [
             name
             for name, value in (
-                ("MGRS_JUDGE_API_URL", endpoint),
+                ("CHART_JUDGE_API_URL", endpoint),
                 (f"${JUDGE_API_KEY_ENV}", api_key),
-                ("MGRS_JUDGE_MODEL", label),
+                ("CHART_JUDGE_MODEL", label),
             )
             if not value
         ]
@@ -434,9 +434,9 @@ def build_transport(
         missing = [
             name
             for name, value in (
-                ("MGRS_JUDGE_API_URL", endpoint),
+                ("CHART_JUDGE_API_URL", endpoint),
                 (f"${JUDGE_API_KEY_ENV}", api_key),
-                ("MGRS_JUDGE_MODEL", label),
+                ("CHART_JUDGE_MODEL", label),
             )
             if not value
         ]
@@ -446,5 +446,5 @@ def build_transport(
             )
         return OpenAIChatTransport(endpoint, api_key, label)
     raise ValueError(
-        f"未知判题后端 {kind!r}；可选 jev / openai_chat（MGRS_JUDGE_BACKEND）"
+        f"未知判题后端 {kind!r}；可选 jev / openai_chat（CHART_JUDGE_BACKEND）"
     )
