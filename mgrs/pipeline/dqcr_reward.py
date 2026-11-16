@@ -1,4 +1,4 @@
-"""DQCR（Dual-Question Composite Reward）：双题复合判题奖励的题面、聚合与请求指纹。
+"""RDS（Redundancy-Discounted Support）：双题复合判题奖励的题面、聚合与请求指纹。
 
 一次判题调用同时回答两道独立选择题：
 
@@ -23,7 +23,8 @@ from __future__ import annotations
 import os
 from typing import Any, NamedTuple
 
-# 口径标识：写进 manifest 的 reward_scheme 字段。
+# 历史口径标识：保留在 manifest.reward_scheme 中，避免旧运行记录失配。
+# 对外名称为 RDS（Redundancy-Discounted Support）。
 SCHEME = "dqcr"
 
 # schema 前缀必须带判题模型标识：`JevEvaluator.fingerprint()` 只含本 schema 串与请求

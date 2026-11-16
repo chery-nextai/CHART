@@ -1,6 +1,6 @@
-"""判题后端适配层（DQCR 的可替换判题器）。
+"""判题后端适配层（RDS 的可替换判题器）。
 
-DQCR 奖励需要一个「判题模型」对每条 (问题, 候选答案, 检索证据) 给出两道选择题的
+RDS 奖励需要一个「判题模型」对每条 (问题, 候选答案, 检索证据) 给出两道选择题的
 概率分布：``support``（三档）与 ``redundancy``（四档）。本模块把「这次请求怎么发」
 从评估链路里抽出来，使任何 OpenAI 兼容的对话模型都能充当判题器。
 
@@ -116,7 +116,7 @@ def render_judge_messages(
     """把原生判题请求（state + questions）渲染成对话消息。
 
     提示词逐字使用档位里的 ``instructions`` 与 ``criteria`` 文本，不做改写，
-    以保证与论文中 DQCR 的题面一致。
+    以保证与论文中 RDS 的题面一致。
     """
     system = (
         "You are a strict retrieval judge. You are given a question, a candidate answer, "

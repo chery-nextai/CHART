@@ -1,0 +1,569 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns2="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="1324.8pt" height="705.6pt" viewBox="0 0 1324.8 705.6" version="1.1" id="chart_framework_revised-root" role="img" aria-labelledby="chart_framework_revised-title chart_framework_revised-desc">
+ <title id="chart_framework_revised-title">Revised CHART framework</title><desc id="chart_framework_revised-desc">CHART selects retrieval configurations using trial history and geometry-aware utility. Every selected configuration passes through evidence retrieval and RDS evaluation before entering trial memory; reference answers are used only for RDS scoring.</desc><metadata>
+  <rdf:RDF>
+   <ns2:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:date>2026-11-16T13:06:31.004437</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <ns2:Agent>
+      <dc:title>CHART revised framework figure</dc:title>
+     </ns2:Agent>
+    </dc:creator>
+   </ns2:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="chart_framework_revised-figure_1">
+  <g id="chart_framework_revised-patch_1">
+   <path d="M 0 705.6  L 1324.8 705.6  L 1324.8 0  L 0 0  z " style="fill: #ffffff" />
+  </g>
+  <g id="chart_framework_revised-axes_1">
+   <g id="chart_framework_revised-patch_2">
+    <path d="M 56.16 51.84  L 1268.64 51.84  Q 1285.92 51.84 1285.92 69.12  L 1285.92 214.56  Q 1285.92 231.84 1268.64 231.84  L 56.16 231.84  Q 38.88 231.84 38.88 214.56  L 38.88 69.12  Q 38.88 51.84 56.16 51.84  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke-dasharray: 2,4.4; stroke-dashoffset: 0; stroke: #086b13; stroke-width: 2; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_3">
+    <path d="M 56.16 254.88  L 1268.64 254.88  Q 1285.92 254.88 1285.92 272.16  L 1285.92 426.24  Q 1285.92 443.52 1268.64 443.52  L 56.16 443.52  Q 38.88 443.52 38.88 426.24  L 38.88 272.16  Q 38.88 254.88 56.16 254.88  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke-dasharray: 2,4.4; stroke-dashoffset: 0; stroke: #101578; stroke-width: 2; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_4">
+    <path d="M 56.16 468  L 1268.64 468  Q 1285.92 468 1285.92 485.28  L 1285.92 637.92  Q 1285.92 655.2 1268.64 655.2  L 56.16 655.2  Q 38.88 655.2 38.88 637.92  L 38.88 485.28  Q 38.88 468 56.16 468  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke-dasharray: 2,4.4; stroke-dashoffset: 0; stroke: #760e80; stroke-width: 2; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_5">
+    <path d="M 46.08 55.44  L 348.48 55.44  L 290.88 93.6  L 46.08 93.6  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5faf0" />
+   </g>
+   <g id="chart_framework_revised-patch_6">
+    <path d="M 46.08 258.48  L 348.48 258.48  L 290.88 296.64  L 46.08 296.64  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5f7ff" />
+   </g>
+   <g id="chart_framework_revised-patch_7">
+    <path d="M 46.08 471.6  L 348.48 471.6  L 290.88 509.76  L 46.08 509.76  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #fcf6fc" />
+   </g>
+   <g id="chart_framework_revised-text_1">
+    <text style="fill: #086b13; font: 23.5px 'Times New Roman'; text-anchor: start" x="51.84" y="76.205508" transform="rotate(-0 51.84 76.205508)">Forward Search</text>
+   </g>
+   <g id="chart_framework_revised-text_2">
+    <text style="fill: #101578; font: 23.5px 'Times New Roman'; text-anchor: start" x="51.84" y="279.223477" transform="rotate(-0 51.84 279.223477)">Episodic Memory</text>
+   </g>
+   <g id="chart_framework_revised-text_3">
+    <text style="fill: #760e80; font: 23.5px 'Times New Roman'; text-anchor: start" x="51.84" y="492.365508" transform="rotate(-0 51.84 492.365508)">Evaluation &amp; Feedback</text>
+   </g>
+   <g id="chart_framework_revised-patch_8">
+    <path d="M 272.16 154.08  L 303.043932 154.08  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #78a95f; stroke-width: 2; stroke-linecap: round" />
+    <path d="M 296.643932 150.88  L 303.043932 154.08  L 296.643932 157.28  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #78a95f; stroke: #78a95f; stroke-width: 2; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_9">
+    <path d="M 580.32 154.08  L 622.723932 154.08  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #78a95f; stroke-width: 2; stroke-linecap: round" />
+    <path d="M 616.323932 150.88  L 622.723932 154.08  L 616.323932 157.28  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #78a95f; stroke: #78a95f; stroke-width: 2; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_10">
+    <path d="M 910.08 154.08  L 948.163932 154.08  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #78a95f; stroke-width: 2; stroke-linecap: round" />
+    <path d="M 941.763932 150.88  L 948.163932 154.08  L 941.763932 157.28  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #78a95f; stroke: #78a95f; stroke-width: 2; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_11">
+    <path d="M 479.52 357.12  L 540.643932 357.12  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #4c5195; stroke-width: 2; stroke-linecap: round" />
+    <path d="M 534.243932 353.92  L 540.643932 357.12  L 534.243932 360.32  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #4c5195; stroke: #4c5195; stroke-width: 2; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_12">
+    <path d="M 768.96 302.4  L 768.96 208.156068  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #101578; stroke-width: 2; stroke-linecap: round" />
+    <path d="M 765.76 214.556068  L 768.96 208.156068  L 772.16 214.556068  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #101578; stroke: #101578; stroke-width: 2; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_13">
+    <path d="M 1238.4 154.08  L 1293.12 154.08  Q 1301.76 154.08 1301.76 162.72  L 1301.76 567.36  Q 1301.76 576 1293.12 576  L 1240.636068 576  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 2; stroke-linecap: round" />
+    <path d="M 1247.036068 579.2  L 1240.636068 576  L 1247.036068 572.8  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #111111; stroke: #111111; stroke-width: 2; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_14">
+    <path d="M 933.12 576  L 883.516068 576  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #ac79b3; stroke-width: 2; stroke-linecap: round" />
+    <path d="M 889.916068 579.2  L 883.516068 576  L 889.916068 572.8  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ac79b3; stroke: #ac79b3; stroke-width: 2; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_15">
+    <path d="M 470.88 571.68  L 409.756068 571.68  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #ac79b3; stroke-width: 2; stroke-linecap: round" />
+    <path d="M 416.156068 574.88  L 409.756068 571.68  L 416.156068 568.48  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ac79b3; stroke: #ac79b3; stroke-width: 2; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_16">
+    <path d="M 576 519.84  L 576 463.68  Q 576 455.04 567.36 455.04  L 288 455.04  Q 279.36 455.04 279.36 446.4  L 279.36 415.516068  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #ac79b3; stroke-width: 2; stroke-linecap: round" />
+    <path d="M 276.16 421.916068  L 279.36 415.516068  L 282.56 421.916068  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ac79b3; stroke: #ac79b3; stroke-width: 2; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_17">
+    <path d="M 72 102.24  L 262.08 102.24  Q 272.16 102.24 272.16 112.32  L 272.16 195.84  Q 272.16 205.92 262.08 205.92  L 72 205.92  Q 61.92 205.92 61.92 195.84  L 61.92 112.32  Q 61.92 102.24 72 102.24  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5faf0; stroke-dasharray: 7.2,5.4; stroke-dashoffset: 0; stroke: #086b13; stroke-width: 1.8; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_18">
+    <path d="M 315.36 102.24  L 570.24 102.24  Q 580.32 102.24 580.32 112.32  L 580.32 195.84  Q 580.32 205.92 570.24 205.92  L 315.36 205.92  Q 305.28 205.92 305.28 195.84  L 305.28 112.32  Q 305.28 102.24 315.36 102.24  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5faf0; stroke-dasharray: 7.2,5.4; stroke-dashoffset: 0; stroke: #086b13; stroke-width: 1.8; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_19">
+    <path d="M 635.04 102.24  L 900 102.24  Q 910.08 102.24 910.08 112.32  L 910.08 195.84  Q 910.08 205.92 900 205.92  L 635.04 205.92  Q 624.96 205.92 624.96 195.84  L 624.96 112.32  Q 624.96 102.24 635.04 102.24  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5faf0; stroke-dasharray: 7.2,5.4; stroke-dashoffset: 0; stroke: #086b13; stroke-width: 1.8; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_20">
+    <path d="M 960.48 102.24  L 1228.32 102.24  Q 1238.4 102.24 1238.4 112.32  L 1238.4 195.84  Q 1238.4 205.92 1228.32 205.92  L 960.48 205.92  Q 950.4 205.92 950.4 195.84  L 950.4 112.32  Q 950.4 102.24 960.48 102.24  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5faf0; stroke-dasharray: 7.2,5.4; stroke-dashoffset: 0; stroke: #086b13; stroke-width: 1.8; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_21">
+    <path d="M 89.28 302.4  L 469.44 302.4  Q 479.52 302.4 479.52 312.48  L 479.52 403.2  Q 479.52 413.28 469.44 413.28  L 89.28 413.28  Q 79.2 413.28 79.2 403.2  L 79.2 312.48  Q 79.2 302.4 89.28 302.4  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5f7ff; stroke-dasharray: 7.2,5.4; stroke-dashoffset: 0; stroke: #101578; stroke-width: 1.8; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_22">
+    <path d="M 552.96 302.4  L 1228.32 302.4  Q 1238.4 302.4 1238.4 312.48  L 1238.4 403.2  Q 1238.4 413.28 1228.32 413.28  L 552.96 413.28  Q 542.88 413.28 542.88 403.2  L 542.88 312.48  Q 542.88 302.4 552.96 302.4  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5f7ff; stroke-dasharray: 7.2,5.4; stroke-dashoffset: 0; stroke: #101578; stroke-width: 1.8; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_23">
+    <path d="M 943.2 514.08  L 1228.32 514.08  Q 1238.4 514.08 1238.4 524.16  L 1238.4 627.84  Q 1238.4 637.92 1228.32 637.92  L 943.2 637.92  Q 933.12 637.92 933.12 627.84  L 933.12 524.16  Q 933.12 514.08 943.2 514.08  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #fcf6fc; stroke-dasharray: 7.2,5.4; stroke-dashoffset: 0; stroke: #760e80; stroke-width: 1.8; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_24">
+    <path d="M 480.96 519.84  L 871.2 519.84  Q 881.28 519.84 881.28 529.92  L 881.28 613.44  Q 881.28 623.52 871.2 623.52  L 480.96 623.52  Q 470.88 623.52 470.88 613.44  L 470.88 529.92  Q 470.88 519.84 480.96 519.84  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #fcf6fc; stroke-dasharray: 7.2,5.4; stroke-dashoffset: 0; stroke: #760e80; stroke-width: 1.8; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_25">
+    <path d="M 72 519.84  L 397.44 519.84  Q 407.52 519.84 407.52 529.92  L 407.52 613.44  Q 407.52 623.52 397.44 623.52  L 72 623.52  Q 61.92 623.52 61.92 613.44  L 61.92 529.92  Q 61.92 519.84 72 519.84  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #fcf6fc; stroke-dasharray: 7.2,5.4; stroke-dashoffset: 0; stroke: #760e80; stroke-width: 1.8; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_26">
+    <path d="M 776.16 234.72  L 859.68 234.72  L 859.68 254.88  L 776.16 254.88  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff" />
+   </g>
+   <g id="chart_framework_revised-patch_27">
+    <path d="M 365.76 429.12  L 472.32 429.12  L 472.32 449.28  L 365.76 449.28  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff" />
+   </g>
+   <g id="chart_framework_revised-line2d_1">
+    <path d="M 888.48 335.52  L 888.48 401.76  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #4c5195; stroke-opacity: 0.45; stroke-width: 0.9; stroke-linecap: square" />
+   </g>
+   <g id="chart_framework_revised-text_4">
+    <text style="fill: #101578; font: 700 13.5px 'Times New Roman'; text-anchor: middle" x="817.92" y="247.825898" transform="rotate(-0 817.92 247.825898)">UTILITY</text>
+   </g>
+   <g id="chart_framework_revised-text_5">
+    <text style="fill: #760e80; font: 700 13.5px 'Times New Roman'; text-anchor: middle" x="419.04" y="442.225898" transform="rotate(-0 419.04 442.225898)">APPEND TRIAL</text>
+   </g>
+   <g id="chart_framework_revised-patch_28">
+    <path d="M 78.8832 112.392  L 98.8416 112.392  L 98.8416 139.0032  L 78.8832 139.0032  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_29">
+    <path d="M 76.1616 115.1136  L 96.12 115.1136  L 96.12 140.8176  L 76.1616 140.8176  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_30">
+    <path d="M 319.2192 113.2992  L 326.1744 113.2992  L 326.1744 120.2544  L 319.2192 120.2544  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.2; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_31">
+    <path d="M 319.2192 122.3712  L 326.1744 122.3712  L 326.1744 129.3264  L 319.2192 129.3264  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.2; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_32">
+    <path d="M 319.2192 131.4432  L 326.1744 131.4432  L 326.1744 138.3984  L 319.2192 138.3984  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.2; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_33">
+    <path d="M 328.2912 113.2992  L 335.2464 113.2992  L 335.2464 120.2544  L 328.2912 120.2544  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.2; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_34">
+    <path d="M 328.2912 122.3712  L 335.2464 122.3712  L 335.2464 129.3264  L 328.2912 129.3264  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5d89b; stroke: #111111; stroke-width: 1.2; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_35">
+    <path d="M 328.2912 131.4432  L 335.2464 131.4432  L 335.2464 138.3984  L 328.2912 138.3984  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.2; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_36">
+    <path d="M 337.3632 113.2992  L 344.3184 113.2992  L 344.3184 120.2544  L 337.3632 120.2544  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.2; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_37">
+    <path d="M 337.3632 122.3712  L 344.3184 122.3712  L 344.3184 129.3264  L 337.3632 129.3264  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.2; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_38">
+    <path d="M 337.3632 131.4432  L 344.3184 131.4432  L 344.3184 138.3984  L 337.3632 138.3984  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.2; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_39">
+    <path d="M 964.3392 112.6944  L 981.2736 112.6944  L 981.2736 138.3984  L 964.3392 138.3984  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_40">
+    <path d="M 972.2016 119.3472  L 990.3456 119.3472  L 990.3456 139.9104  L 972.2016 139.9104  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_41">
+    <path d="M 93.1392 313.4592  L 119.1456 313.4592  L 119.1456 338.256  L 93.1392 338.256  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_42">
+    <path d="M 95.5584 311.6448  L 117.3312 311.6448  L 117.3312 316.4832  L 95.5584 316.4832  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5d89b; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_43">
+    <path d="M 949.7808 524.8368  L 970.9488 524.8368  L 970.9488 550.8432  L 949.7808 550.8432  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ffffff; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_44">
+    <path d="M 954.3168 523.3248  L 966.4128 523.3248  L 966.4128 528.1632  L 954.3168 528.1632  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5d89b; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-line2d_2">
+    <path d="M 80.3952 121.7664  L 91.8864 121.7664  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_3">
+    <path d="M 80.3952 126.6048  L 91.8864 126.6048  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_4">
+    <path d="M 80.3952 131.4432  L 91.8864 131.4432  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_45">
+    <path d="M 641.3184 128.5704  C 641.759486 128.5704 642.182565 128.745645 642.49446 129.05754  C 642.806355 129.369435 642.9816 129.792514 642.9816 130.2336  C 642.9816 130.674686 642.806355 131.097765 642.49446 131.40966  C 642.182565 131.721555 641.759486 131.8968 641.3184 131.8968  C 640.877314 131.8968 640.454235 131.721555 640.14234 131.40966  C 639.830445 131.097765 639.6552 130.674686 639.6552 130.2336  C 639.6552 129.792514 639.830445 129.369435 640.14234 129.05754  C 640.454235 128.745645 640.877314 128.5704 641.3184 128.5704  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_46">
+    <path d="M 648.576 114.0552  C 649.017086 114.0552 649.440165 114.230445 649.75206 114.54234  C 650.063955 114.854235 650.2392 115.277314 650.2392 115.7184  C 650.2392 116.159486 650.063955 116.582565 649.75206 116.89446  C 649.440165 117.206355 649.017086 117.3816 648.576 117.3816  C 648.134914 117.3816 647.711835 117.206355 647.39994 116.89446  C 647.088045 116.582565 646.9128 116.159486 646.9128 115.7184  C 646.9128 115.277314 647.088045 114.854235 647.39994 114.54234  C 647.711835 114.230445 648.134914 114.0552 648.576 114.0552  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_47">
+    <path d="M 657.648 124.9416  C 658.089086 124.9416 658.512165 125.116845 658.82406 125.42874  C 659.135955 125.740635 659.3112 126.163714 659.3112 126.6048  C 659.3112 127.045886 659.135955 127.468965 658.82406 127.78086  C 658.512165 128.092755 658.089086 128.268 657.648 128.268  C 657.206914 128.268 656.783835 128.092755 656.47194 127.78086  C 656.160045 127.468965 655.9848 127.045886 655.9848 126.6048  C 655.9848 126.163714 656.160045 125.740635 656.47194 125.42874  C 656.783835 125.116845 657.206914 124.9416 657.648 124.9416  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_48">
+    <path d="M 647.064 134.0136  C 647.505086 134.0136 647.928165 134.188845 648.24006 134.50074  C 648.551955 134.812635 648.7272 135.235714 648.7272 135.6768  C 648.7272 136.117886 648.551955 136.540965 648.24006 136.85286  C 647.928165 137.164755 647.505086 137.34 647.064 137.34  C 646.622914 137.34 646.199835 137.164755 645.88794 136.85286  C 645.576045 136.540965 645.4008 136.117886 645.4008 135.6768  C 645.4008 135.235714 645.576045 134.812635 645.88794 134.50074  C 646.199835 134.188845 646.622914 134.0136 647.064 134.0136  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_49">
+    <path d="M 662.4864 112.8456  C 662.927486 112.8456 663.350565 113.020845 663.66246 113.33274  C 663.974355 113.644635 664.1496 114.067714 664.1496 114.5088  C 664.1496 114.949886 663.974355 115.372965 663.66246 115.68486  C 663.350565 115.996755 662.927486 116.172 662.4864 116.172  C 662.045314 116.172 661.622235 115.996755 661.31034 115.68486  C 660.998445 115.372965 660.8232 114.949886 660.8232 114.5088  C 660.8232 114.067714 660.998445 113.644635 661.31034 113.33274  C 661.622235 113.020845 662.045314 112.8456 662.4864 112.8456  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_50">
+    <path d="M 657.648 121.464  C 659.011356 121.464 660.319056 122.005667 661.283095 122.969705  C 662.247133 123.933744 662.7888 125.241444 662.7888 126.6048  C 662.7888 127.968156 662.247133 129.275856 661.283095 130.239895  C 660.319056 131.203933 659.011356 131.7456 657.648 131.7456  C 656.284644 131.7456 654.976944 131.203933 654.012905 130.239895  C 653.048867 129.275856 652.5072 127.968156 652.5072 126.6048  C 652.5072 125.241444 653.048867 123.933744 654.012905 122.969705  C 654.976944 122.005667 656.284644 121.464 657.648 121.464  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5d89b; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-line2d_5">
+    <path d="M 660.9744 130.536  L 666.72 136.8864  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 2; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_6">
+    <path d="M 974.6208 133.8624  L 979.4592 127.8144  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_7">
+    <path d="M 979.4592 127.8144  L 983.6928 132.6528  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_8">
+    <path d="M 983.6928 132.6528  L 987.624 126.9072  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_51">
+    <path d="M 984.9024 122.22  C 985.343486 122.22 985.766565 122.395245 986.07846 122.70714  C 986.390355 123.019035 986.5656 123.442114 986.5656 123.8832  C 986.5656 124.324286 986.390355 124.747365 986.07846 125.05926  C 985.766565 125.371155 985.343486 125.5464 984.9024 125.5464  C 984.461314 125.5464 984.038235 125.371155 983.72634 125.05926  C 983.414445 124.747365 983.2392 124.324286 983.2392 123.8832  C 983.2392 123.442114 983.414445 123.019035 983.72634 122.70714  C 984.038235 122.395245 984.461314 122.22 984.9024 122.22  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5d89b; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-line2d_9">
+    <path d="M 93.1392 319.5072  L 119.1456 319.5072  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_10">
+    <path d="M 93.1392 325.5552  L 119.1456 325.5552  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_11">
+    <path d="M 93.1392 331.6032  L 119.1456 331.6032  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_12">
+    <path d="M 108.2592 313.4592  L 108.2592 338.256  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_52">
+    <path d="M 558.0288 329.4864  C 558.590182 329.4864 559.128647 329.709439 559.525604 330.106396  C 559.922561 330.503353 560.1456 331.041818 560.1456 331.6032  C 560.1456 332.164582 559.922561 332.703047 559.525604 333.100004  C 559.128647 333.496961 558.590182 333.72 558.0288 333.72  C 557.467418 333.72 556.928953 333.496961 556.531996 333.100004  C 556.135039 332.703047 555.912 332.164582 555.912 331.6032  C 555.912 331.041818 556.135039 330.503353 556.531996 330.106396  C 556.928953 329.709439 557.467418 329.4864 558.0288 329.4864  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_53">
+    <path d="M 565.5888 313.7616  C 566.150182 313.7616 566.688647 313.984639 567.085604 314.381596  C 567.482561 314.778553 567.7056 315.317018 567.7056 315.8784  C 567.7056 316.439782 567.482561 316.978247 567.085604 317.375204  C 566.688647 317.772161 566.150182 317.9952 565.5888 317.9952  C 565.027418 317.9952 564.488953 317.772161 564.091996 317.375204  C 563.695039 316.978247 563.472 316.439782 563.472 315.8784  C 563.472 315.317018 563.695039 314.778553 564.091996 314.381596  C 564.488953 313.984639 565.027418 313.7616 565.5888 313.7616  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_54">
+    <path d="M 578.592 312.552  C 579.153382 312.552 579.691847 312.775039 580.088804 313.171996  C 580.485761 313.568953 580.7088 314.107418 580.7088 314.6688  C 580.7088 315.230182 580.485761 315.768647 580.088804 316.165604  C 579.691847 316.562561 579.153382 316.7856 578.592 316.7856  C 578.030618 316.7856 577.492153 316.562561 577.095196 316.165604  C 576.698239 315.768647 576.4752 315.230182 576.4752 314.6688  C 576.4752 314.107418 576.698239 313.568953 577.095196 313.171996  C 577.492153 312.775039 578.030618 312.552 578.592 312.552  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_55">
+    <path d="M 580.4064 330.9984  C 580.967782 330.9984 581.506247 331.221439 581.903204 331.618396  C 582.300161 332.015353 582.5232 332.553818 582.5232 333.1152  C 582.5232 333.676582 582.300161 334.215047 581.903204 334.612004  C 581.506247 335.008961 580.967782 335.232 580.4064 335.232  C 579.845018 335.232 579.306553 335.008961 578.909596 334.612004  C 578.512639 334.215047 578.2896 333.676582 578.2896 333.1152  C 578.2896 332.553818 578.512639 332.015353 578.909596 331.618396  C 579.306553 331.221439 579.845018 330.9984 580.4064 330.9984  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-patch_56">
+    <path d="M 569.2176 324.9504  C 569.778982 324.9504 570.317447 325.173439 570.714404 325.570396  C 571.111361 325.967353 571.3344 326.505818 571.3344 327.0672  C 571.3344 327.628582 571.111361 328.167047 570.714404 328.564004  C 570.317447 328.960961 569.778982 329.184 569.2176 329.184  C 568.656218 329.184 568.117753 328.960961 567.720796 328.564004  C 567.323839 328.167047 567.1008 327.628582 567.1008 327.0672  C 567.1008 326.505818 567.323839 325.967353 567.720796 325.570396  C 568.117753 325.173439 568.656218 324.9504 569.2176 324.9504  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-line2d_13">
+    <path d="M 558.0288 331.6032  L 569.2176 327.0672  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #4c5195; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_14">
+    <path d="M 565.5888 315.8784  L 569.2176 327.0672  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #4c5195; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_15">
+    <path d="M 578.592 314.6688  L 569.2176 327.0672  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #4c5195; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_16">
+    <path d="M 580.4064 333.1152  L 569.2176 327.0672  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #4c5195; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_57">
+    <path d="M 569.2176 323.136  C 570.260166 323.136 571.260172 323.550216 571.997378 324.287422  C 572.734584 325.024628 573.1488 326.024634 573.1488 327.0672  C 573.1488 328.109766 572.734584 329.109772 571.997378 329.846978  C 571.260172 330.584184 570.260166 330.9984 569.2176 330.9984  C 568.175034 330.9984 567.175028 330.584184 566.437822 329.846978  C 565.700616 329.109772 565.2864 328.109766 565.2864 327.0672  C 565.2864 326.024634 565.700616 325.024628 566.437822 324.287422  C 567.175028 323.550216 568.175034 323.136 569.2176 323.136  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5d89b; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-line2d_17">
+    <path d="M 954.0144 538.1424  L 958.5504 542.9808  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #086b13; stroke-width: 2.4; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_18">
+    <path d="M 958.5504 542.9808  L 966.7152 532.0944  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #086b13; stroke-width: 2.4; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_58">
+    <path d="M 496.008 533.9232  C 498.574317 533.9232 501.03587 534.942809 502.850531 536.757469  C 504.665191 538.57213 505.6848 541.033683 505.6848 543.6  C 505.6848 546.166317 504.665191 548.62787 502.850531 550.442531  C 501.03587 552.257191 498.574317 553.2768 496.008 553.2768  C 493.441683 553.2768 490.98013 552.257191 489.165469 550.442531  C 487.350809 548.62787 486.3312 546.166317 486.3312 543.6  C 486.3312 541.033683 487.350809 538.57213 489.165469 536.757469  C 490.98013 534.942809 493.441683 533.9232 496.008 533.9232  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #c5e7f1; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-line2d_19">
+    <path d="M 496.008 538.1568  L 496.008 549.0432  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-line2d_20">
+    <path d="M 490.8672 543.6  L 501.1488 543.6  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #111111; stroke-width: 1.45; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_59">
+    <path d="M 502.056 533.9232  L 506.7432 533.9232  Q 511.4304 533.9232 511.4304 538.6104  L 511.4304 546.570752  " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: none; stroke: #ac79b3; stroke-width: 1.4; stroke-linecap: round" />
+    <path d="M 513.2304 542.970752  L 511.4304 546.570752  L 509.6304 542.970752  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #ac79b3; stroke: #ac79b3; stroke-width: 1.4; stroke-linecap: round" />
+   </g>
+   <g id="chart_framework_revised-patch_60">
+    <path d="M 88.56 529.0848  L 92.648164 537.973125  L 102.364776 539.114557  L 95.174788 545.749275  L 97.09182 555.343043  L 88.56 550.5552  L 80.02818 555.343043  L 81.945212 545.749275  L 74.755224 539.114557  L 84.471836 537.973125  z " clip-path="url(#chart_framework_revised-p3309a1c68e)" style="fill: #f5d89b; stroke: #111111; stroke-width: 1.4; stroke-linejoin: miter" />
+   </g>
+   <g id="chart_framework_revised-text_6">
+    <text style="fill: #111111; font: 700 26px 'Times New Roman'; text-anchor: middle" x="662.4" y="21.667656" transform="rotate(-0 662.4 21.667656)">CHART Framework</text>
+   </g>
+   <g id="chart_framework_revised-text_7">
+    <text style="fill: #535353; font: 16px 'Times New Roman'; text-anchor: middle" x="662.4" y="41.98875" transform="rotate(-0 662.4 41.98875)">Configuration history for adaptive retrieval tuning</text>
+   </g>
+   <g id="chart_framework_revised-text_8">
+    <text style="fill: #086b13; font: 700 20.5px 'Times New Roman'; text-anchor: middle" x="177.12" y="127.714883" transform="rotate(-0 177.12 127.714883)">Search Task</text>
+   </g>
+   <g id="chart_framework_revised-text_9">
+    <text style="fill: #111111; font: 16.1px 'Times New Roman'; text-anchor: middle" x="167.04" y="160.09268" transform="rotate(-0 167.04 160.09268)">Knowledge base + QA panel</text>
+   </g>
+   <g id="chart_framework_revised-text_10">
+    
+    <g style="fill: #111111" transform="translate(114.6345 179.9465)">
+     <text>
+      <tspan style="font: italic 16.1px 'STIXNonUnicode'" x="0" y="-0.03281250000000213"></tspan>
+      <tspan style="font: 16.1px 'STIXGeneral'" x="14.325443 27.6995 35.43949 52.715758 70.998224 76.367838" y="-0.03281250000000213">={(,)}</tspan>
+      <tspan style="font: italic 16.1px 'STIXGeneral'" x="40.809103 59.075441" y="-0.03281250000000213">qa</tspan>
+      <tspan style="font: italic 11.27px 'STIXGeneral'" x="48.871588 67.154054 84.355015 84.355015" y="2.0859374999999982 2.0859374999999982 -5.682812500000001 4.204687499999999">iiNi</tspan>
+      <tspan style="font: 11.27px 'STIXGeneral'" x="89.122849 98.484689" y="4.204687499999999">=1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_11">
+    <text style="fill: #111111; font: 16.1px 'Times New Roman'; text-anchor: middle" x="167.04" y="198.97268" transform="rotate(-0 167.04 198.97268)">Budget: B evaluations</text>
+   </g>
+   <g id="chart_framework_revised-text_12">
+    <text style="fill: #086b13; font: 700 20.5px 'Times New Roman'; text-anchor: middle" x="452.88" y="127.85582" transform="rotate(-0 452.88 127.85582)">Configuration Space</text>
+   </g>
+   <g id="chart_framework_revised-text_13">
+    
+    <g style="fill: #111111" transform="translate(377.625 159.54)">
+     <text>
+      <tspan style="font: italic 16.5px 'STIXGeneral'" x="0 28.888168 60.796724 103.608472 117.442059" y="-0.390625">xkkce</tspan>
+      <tspan style="font: 16.5px 'STIXGeneral'" x="9.708588 23.393677 54.289125 97.100873 110.93446 124.768048" y="-0.390625">=(,,,)</tspan>
+      <tspan style="font: 11.55px 'STIXGeneral'" x="36.214157 39.42505 44.553242 50.328232 68.122713 71.333606 80.319499 85.447691 91.222681" y="1.859375">textimage</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_14">
+    <text style="fill: #111111; font: 16.5px 'Times New Roman'; text-anchor: middle" x="442.8" y="179.643867" transform="rotate(-0 442.8 179.643867)">Four retrieval controls</text>
+   </g>
+   <g id="chart_framework_revised-text_15">
+    
+    <g style="fill: #111111" transform="translate(335.4675 199.08)">
+     <text>
+      <tspan style="font: italic 16.5px 'STIXGeneral'" x="0" y="-0.203125">M</tspan>
+      <tspan style="font: 16.5px 'STIXGeneral'" x="16.12709 29.81218 44.530151" y="-0.203125">=||</tspan>
+      <tspan style="font: italic 16.5px 'STIXNonUnicode'" x="33.112167" y="-0.203125"></tspan>
+      <tspan style="font: 16.5px 'Times New Roman'" x="47.830139 51.955139 59.278625 66.602112 74.852112 83.102112 87.68634 95.93634 103.259827 107.844055 115.167542 119.292542 126.616028 134.866028 143.116028 148.610657 153.194885 161.444885 169.694885 175.189514 182.513 187.097229 191.681458 199.931458 208.181458" y="-0.203125"> candidate configurations</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_16">
+    <text style="fill: #086b13; font: 700 20.5px 'Times New Roman'; text-anchor: middle" x="777.6" y="127.714883" transform="rotate(-0 777.6 127.714883)">CHART Decision</text>
+   </g>
+   <g id="chart_framework_revised-text_17">
+    <text style="fill: #111111; font: 16.6px 'Times New Roman'; text-anchor: middle" x="767.52" y="160.227891" transform="rotate(-0 767.52 160.227891)">Initialize: shared initial batch</text>
+   </g>
+   <g id="chart_framework_revised-text_18">
+    
+    <g style="fill: #111111" transform="translate(716.226 181.425156)">
+     <text>
+      <tspan style="font: 10.179846px 'STIXSizeTwoSym'" x="13.136719" y="-8.234375">̂</tspan>
+      <tspan style="font: italic 16.6px 'STIXGeneral'" x="0 19.941699 71.830486 89.730801" y="-0.7062500000000007">Rxρx</tspan>
+      <tspan style="font: italic 11.62px 'STIXGeneral'" x="10.420367 80.209469" y="1.5437499999999993">tt</tspan>
+      <tspan style="font: 16.6px 'STIXGeneral'" x="14.405582 27.323184 35.259949 49.048703 57.361188 61.517422 84.194683 97.112286" y="-0.7062500000000007">()+0.1()</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_19">
+    <text style="fill: #111111; font: 16.6px 'Times New Roman'; text-anchor: middle" x="767.52" y="199.107891" transform="rotate(-0 767.52 199.107891)">Then select the top untried candidate</text>
+   </g>
+   <g id="chart_framework_revised-text_20">
+    <text style="fill: #086b13; font: 700 20.5px 'Times New Roman'; text-anchor: middle" x="1104.48" y="127.714883" transform="rotate(-0 1104.48 127.714883)">Evidence Retrieval</text>
+   </g>
+   <g id="chart_framework_revised-text_21">
+    
+    <g style="fill: #111111" transform="translate(980.3315 160.104)">
+     <text>
+      <tspan style="font: 16.1px 'Times New Roman'" x="0 5.369751 13.432251 21.494751 29.557251 34.037292 38.517334 42.548584 50.611084 58.673584 65.830627 72.105835 76.585876 81.065918 89.128418 97.190918 113.128822 117.160072 126.254005 130.285255 137.442299 145.504799 153.567299 158.93705 163.417091 171.479591 179.542091 184.911842 192.068886 196.548927 201.028969 209.091469 217.153969" y="-0.890625">Input: question  + configuration </tspan>
+      <tspan style="font: italic 16.1px 'STIXGeneral'" x="101.222168 221.185219" y="-0.890625">qx</tspan>
+      <tspan style="font: italic 11.27px 'STIXGeneral'" x="109.284653" y="1.2281250000000004">i</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_22">
+    <text style="fill: #111111; font: 16.1px 'Times New Roman'; text-anchor: middle" x="1094.4" y="179.547773" transform="rotate(-0 1094.4 179.547773)">Text: RRF-fused chunks</text>
+   </g>
+   <g id="chart_framework_revised-text_23">
+    <text style="fill: #111111; font: 16.1px 'Times New Roman'; text-anchor: middle" x="1094.4" y="198.97268" transform="rotate(-0 1094.4 198.97268)">Image: retrieved transcriptions</text>
+   </g>
+   <g id="chart_framework_revised-text_24">
+    <text style="fill: #101578; font: 700 20.5px 'Times New Roman'; text-anchor: middle" x="289.44" y="328.01582" transform="rotate(-0 289.44 328.01582)">Trial Memory</text>
+   </g>
+   <g id="chart_framework_revised-text_25">
+    
+    <g style="fill: #101578" transform="translate(191.61 359.805)">
+     <text>
+      <tspan style="font: italic 25px 'STIXNonUnicode'" x="0" y="-0.6156250000000014"></tspan>
+      <tspan style="font: italic 17.5px 'STIXGeneral'" x="29.536088 91.2742 116.827314 143.506527 143.506527" y="2.693749999999998 2.693749999999998 2.693749999999998 -9.440625 6.003125000000001">tjjtj</tspan>
+      <tspan style="font: 25px 'STIXGeneral'" x="39.114211 59.849212 71.849212 97.242322 122.795437 131.120434" y="-0.6156250000000014">={(,)}</tspan>
+      <tspan style="font: italic 25px 'STIXGeneral'" x="80.174209 107.102323" y="-0.6156250000000014">xr</tspan>
+      <tspan style="font: 17.5px 'STIXGeneral'" x="150.898526 165.413026" y="6.003125000000001">=1</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_26">
+    
+    <g style="fill: #111111" transform="translate(238.4455 389.38)">
+     <text>
+      <tspan style="font: italic 17.3px 'STIXGeneral'" x="0 27.615129 43.899126" y="-0.515625">rRx</tspan>
+      <tspan style="font: italic 12.11px 'STIXGeneral'" x="6.710251 51.558122" y="1.734375">jj</tspan>
+      <tspan style="font: 17.3px 'STIXGeneral'" x="13.307991 38.154878 55.664963 75.785349" y="-0.515625">=(;)</tspan>
+      <tspan style="font: italic 17.3px 'STIXNonUnicode'" x="62.951349" y="-0.515625"></tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_27">
+    <text style="fill: #535353; font: italic 14.2px 'Times New Roman'; text-anchor: middle" x="279.36" y="407.331328" transform="rotate(-0 279.36 407.331328)">Run-local records; shared across search steps</text>
+   </g>
+   <g id="chart_framework_revised-text_28">
+    <text style="fill: #101578; font: 700 20.5px 'Times New Roman'; text-anchor: middle" x="900.72" y="328.01582" transform="rotate(-0 900.72 328.01582)">Geometry-aware Scoring</text>
+   </g>
+   <g id="chart_framework_revised-text_29">
+    <text style="fill: #101578; font: 700 17px 'Times New Roman'; text-anchor: middle" x="720" y="350.866328" transform="rotate(-0 720 350.866328)">Local Score Prediction (K = 5)</text>
+   </g>
+   <g id="chart_framework_revised-text_30">
+    
+    <g style="fill: #111111" transform="translate(651.54 378.345)">
+     <text>
+      <tspan style="font: 12.87766px 'STIXSizeTwoSym'" x="15.964844" y="-9.90625">̂</tspan>
+      <tspan style="font: italic 21px 'STIXGeneral'" x="0 25.161447" y="-0.890625">Rx</tspan>
+      <tspan style="font: italic 14.7px 'STIXGeneral'" x="13.155291 124.46447" y="1.8890625000000014">tx</tspan>
+      <tspan style="font: 21px 'STIXGeneral'" x="18.168451 34.485437 44.510831" y="-0.890625">()=</tspan>
+      <tspan style="font: italic 700 21px 'STIXGeneral'" x="61.928223" y="-0.890625">α</tspan>
+      <tspan style="font: 14.7px 'STIXGeneral'" x="76.471191 119.569373 130.991263" y="-8.303125000000001 1.8890625000000014 1.8890625000000014">⊤()</tspan>
+      <tspan style="font: 700 21px 'STIXGeneral'" x="92.116976" y="-0.890625">r</tspan>
+      <tspan style="font: italic 14.7px 'STIXNonUnicode'" x="101.765263" y="1.8890625000000014"></tspan>
+      <tspan style="font: italic 10.29px 'STIXGeneral'" x="116.06016" y="3.834843750000001">t</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_31">
+    
+    <g style="fill: #535353" transform="translate(613.3525 400.78)">
+     <text>
+      <tspan style="font: 14.5px 'Times New Roman'" x="0 10.471436 17.721436 22.550049 33.828613 40.264404 44.292969 48.321533 54.757324 61.193115 68.443115 72.068115 82.539551 88.975342 93.003906 100.253906 107.503906 111.532471 117.175293 121.203857" y="-0.49375000000000036">Normalized weights: </tspan>
+      <tspan style="font: italic 14.5px 'STIXGeneral'" x="124.828857 150.435564" y="-0.49375000000000036">αe</tspan>
+      <tspan style="font: italic 10.15px 'STIXGeneral'" x="132.83284 164.751611 173.206544 181.716284" y="1.4890624999999993 -5.781250000000001 -5.781250000000001 -5.781250000000001">jdxx</tspan>
+      <tspan style="font: 14.5px 'STIXGeneral'" x="138.40927" y="-0.49375000000000036">∝</tspan>
+      <tspan style="font: 10.15px 'STIXGeneral'" x="157.798864 169.8266 177.713136 188.660718 192.040662 194.862355 199.937345 202.474834 207.549823" y="-5.781250000000001">−(,)/0.25</tspan>
+      <tspan style="font: italic 7.105px 'STIXGeneral'" x="186.222876" y="-4.393281250000001">j</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_32">
+    <text style="fill: #101578; font: 700 17px 'Times New Roman'; text-anchor: middle" x="1065.6" y="350.983203" transform="rotate(-0 1065.6 350.983203)">Distance Exploration</text>
+   </g>
+   <g id="chart_framework_revised-text_33">
+    
+    <g style="fill: #111111" transform="translate(988.53 370.26)">
+     <text>
+      <tspan style="font: italic 21px 'STIXGeneral'" x="0 22.590157 95.01911 112.512091 130.118478" y="-0.65625">ρxdxx</tspan>
+      <tspan style="font: italic 14.7px 'STIXGeneral'" x="10.584 76.776418 90.932512 139.442468" y="2.1234375000000014 13.2234375 13.2234375 2.1234375000000014">tjtj</tspan>
+      <tspan style="font: 21px 'STIXGeneral'" x="15.59716 31.914146 41.93954 60.356932 76.69493 82.532927 105.519095 121.836081 146.982677" y="-0.65625">()=min(,)</tspan>
+      <tspan style="font: 14.7px 'STIXGeneral'" x="59.356932 66.706921 80.863016" y="13.2234375">1≤≤</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_34">
+    <text style="fill: #535353; font: 15.3px 'Times New Roman'; text-anchor: middle" x="1065.6" y="402.541242" transform="rotate(-0 1065.6 402.541242)">Novelty relative to observed trials</text>
+   </g>
+   <g id="chart_framework_revised-text_35">
+    <text style="fill: #4c5195; font: italic 15px 'Times New Roman'; text-anchor: middle" x="890.64" y="432.709453" transform="rotate(-0 890.64 432.709453)">Normalized distance over four configuration axes</text>
+   </g>
+   <g id="chart_framework_revised-text_36">
+    <text style="fill: #760e80; font: 700 20.5px 'Times New Roman'; text-anchor: middle" x="1095.84" y="539.69582" transform="rotate(-0 1095.84 539.69582)">RDS Scoring</text>
+   </g>
+   <g id="chart_framework_revised-text_37">
+    
+    <g style="fill: #111111" transform="translate(1029.9 559.398938)">
+     <text>
+      <tspan style="font: 15.2px 'Times New Roman'" x="0 5.078369 12.703369 20.328369 27.953369 32.190308 36.427246" y="-0.859375">Input: </tspan>
+      <tspan style="font: italic 15.2px 'STIXGeneral'" x="40.239746 61.178038 82.131589 100.156163" y="-0.859375">qaEx</tspan>
+      <tspan style="font: italic 10.64px 'STIXGeneral'" x="47.864731 68.818281 91.449338" y="1.1234374999999996">iii</tspan>
+      <tspan style="font: 15.2px 'STIXGeneral'" x="51.493309 72.44686 95.077916 106.927159" y="-0.859375">,,()</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_38">
+    
+    <g style="fill: #111111" transform="translate(970.624 578.745281)">
+     <text>
+      <tspan style="font: 14.8px 'Times New Roman'" x="0 8.203247 15.578247 22.953247 30.328247 37.703247 42.615112 46.713135 50.811157" y="-0.84375">Support: </tspan>
+      <tspan style="font: italic 14.8px 'STIXGeneral'" x="54.498657 68.679431" y="-0.84375">sx</tspan>
+      <tspan style="font: italic 10.36px 'STIXGeneral'" x="60.236404" y="1.1390624999999996">i</tspan>
+      <tspan style="font: 14.8px 'STIXGeneral'" x="63.767688 75.228427" y="-0.84375">()</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_39">
+    
+    <g style="fill: #111111" transform="translate(1106.028 578.832)">
+     <text>
+      <tspan style="font: 14.8px 'Times New Roman'" x="0 9.838135 16.384888 23.759888 31.134888 38.509888 45.884888 52.431641 59.806641 66.353394 73.728394 77.826416" y="-0.578125">Redundancy: </tspan>
+      <tspan style="font: italic 14.8px 'STIXGeneral'" x="81.513916 97.331943" y="-0.578125">ux</tspan>
+      <tspan style="font: italic 10.36px 'STIXGeneral'" x="88.888916" y="1.4046874999999996">i</tspan>
+      <tspan style="font: 14.8px 'STIXGeneral'" x="92.4202 103.880939" y="-0.578125">()</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_40">
+    
+    <g style="fill: #111111" transform="translate(997.47 599.044219)">
+     <text>
+      <tspan style="font: italic 18px 'STIXGeneral'" x="0 17.292535 48.806915 66.099451 137.273862 156.564399" y="-0.609375">rxsxux</tspan>
+      <tspan style="font: italic 12.6px 'STIXGeneral'" x="7.001999 55.808914 146.273862" y="1.7718749999999996">iii</tspan>
+      <tspan style="font: 18px 'STIXGeneral'" x="11.298547 25.284525 33.877713 60.105463 74.09144 80.085428 86.079416 97.678616 112.607819 121.607819 126.107819 150.570411 164.556388 170.550376" y="-0.609375">()=()[1−0.5()]</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_41">
+    
+    <g style="fill: #111111" transform="translate(1014.535 624.124102)">
+     <text>
+      <tspan style="font: italic 17.5px 'STIXGeneral'" x="0 16.520004 112.058958 128.893196" y="-0.828125">Rxrx</tspan>
+      <tspan style="font: 17.5px 'STIXGeneral'" x="10.692505 24.290009 44.702005 53.056506 67.571011 81.186017 88.956021 96.726025 123.065696 136.6632" y="-0.828125">(;)=mean()</tspan>
+      <tspan style="font: italic 17.5px 'STIXNonUnicode'" x="31.682001" y="-0.828125"></tspan>
+      <tspan style="font: italic 12.25px 'STIXGeneral'" x="105.753838 118.866453" y="1.5531249999999996">ii</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_42">
+    <text style="fill: #760e80; font: 700 20.5px 'Times New Roman'; text-anchor: middle" x="686.16" y="545.295664" transform="rotate(-0 686.16 545.295664)">Memory Update</text>
+   </g>
+   <g id="chart_framework_revised-text_43">
+    
+    <g style="fill: #111111" transform="translate(565.368 577.872)">
+     <text>
+      <tspan style="font: 16.8px 'Times New Roman'" x="0 12.096313 20.471313 28.846313 36.280762 44.655762 53.030762 96.951785 101.139285 105.792972 114.167972 118.355472 123.009158 131.384158 138.818607 143.006107 147.659793 153.237674 157.89136 165.325809 169.979495 174.166995 182.541995 187.195682 193.714114 198.367801 206.742801 212.320682" y="-0.203125">Append  to the trial history</tspan>
+      <tspan style="font: 16.8px 'STIXGeneral'" x="57.218262 74.242548 91.374042" y="-0.203125">(,)</tspan>
+      <tspan style="font: italic 16.8px 'STIXGeneral'" x="62.796005 80.848749" y="-0.203125">xr</tspan>
+      <tspan style="font: italic 11.76px 'STIXGeneral'" x="70.233002 87.364496" y="2.046875">tt</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_44">
+    <text style="fill: #111111; font: 16.8px 'Times New Roman'; text-anchor: middle" x="676.08" y="597.300188" transform="rotate(-0 676.08 597.300188)">Refresh the best observed configuration</text>
+   </g>
+   <g id="chart_framework_revised-text_45">
+    <text style="fill: #111111; font: 16.8px 'Times New Roman'; text-anchor: middle" x="676.08" y="616.740188" transform="rotate(-0 676.08 616.740188)">Continue until the evaluation budget is used</text>
+   </g>
+   <g id="chart_framework_revised-text_46">
+    <text style="fill: #760e80; font: 700 20.5px 'Times New Roman'; text-anchor: middle" x="244.8" y="545.45582" transform="rotate(-0 244.8 545.45582)">Best Configuration</text>
+   </g>
+   <g id="chart_framework_revised-text_47">
+    <text style="fill: #111111; font: 17px 'Times New Roman'; text-anchor: middle" x="234.72" y="577.188047" transform="rotate(-0 234.72 577.188047)">Return the best evaluated configuration</text>
+   </g>
+   <g id="chart_framework_revised-text_48">
+    
+    <g style="fill: #111111" transform="translate(132.31 600.82)">
+     <text>
+      <tspan style="font: italic 19px 'STIXGeneral'" x="0 103.032494 138.456329 180.555525" y="-0.359375">jrxx</tspan>
+      <tspan style="font: 13.3px 'STIXGeneral'" x="9.218297 66.337833 72.987822 85.795709 149.985337" y="-7.059375 12.381249999999998 12.381249999999998 12.381249999999998 -7.059375">⋆1≤≤⋆</tspan>
+      <tspan style="font: 19px 'STIXGeneral'" x="24.029904 39.788486 48.224475 54.551471 68.337833 83.119815 91.555804 117.24476 164.796944" y="-0.359375 -0.359375 -0.359375 -0.359375 -0.3593750000000018 -0.3593750000000018 -0.3593750000000018 -0.359375 -0.359375">∈argmax,=</tspan>
+      <tspan style="font: italic 13.3px 'STIXGeneral'" x="82.098311 94.906198 110.423485 146.892319 188.991515" y="12.381249999999998 12.381249999999998 2.1531249999999993 4.665624999999999 2.1531249999999993">jBjBj</tspan>
+      <tspan style="font: 9.31px 'STIXGeneral'" x="195.444323" y="-2.536875">⋆</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="chart_framework_revised-text_49">
+    <text style="fill: #535353; font: 16.5px 'Times New Roman'; text-anchor: middle" x="662.4" y="683.628398" transform="rotate(-0 662.4 683.628398)">Experimental instance: M = 288 candidates; B = 30 trials (5 shared initial + 25 utility selections).</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="chart_framework_revised-p3309a1c68e">
+   <rect x="0" y="0" width="1324.8" height="705.6" />
+  </clipPath>
+ </defs>
+</svg>

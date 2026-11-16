@@ -1,6 +1,6 @@
 {
   "_comment": [
-    "三个定版实验（DQCR 双题复合奖励，20 个 seed）的完整参数。",
+    "三个定版实验（RDS 双题复合奖励，20 个 seed）的完整参数。",
     "参数与 runs/<run_id>/manifest.json 一致，脚本 scripts/run_search.sh 按此复现。",
     "runs/ 下同名目录即这些实验的落盘产物，scripts/reproduce_report.sh 可离线重算全部表格。"
   ],
