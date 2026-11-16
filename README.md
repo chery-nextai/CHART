@@ -79,7 +79,7 @@ The table uses the complete **20-seed** experiment. CHART has a higher mean Rewa
 ### 1. Install
 
 ```bash
-git clone https://github.com/chery-nextai/MGRS.git chart
+git clone https://github.com/chery-nextai/CHART.git chart
 cd chart
 python3 -m venv .venv
 source .venv/bin/activate
