@@ -4,8 +4,7 @@ requests>=2.31
 elasticsearch>=8
 Pillow>=10
 
-# 本地编码器（qwen3_vl_2b / jina_* 后端）需要 GPU 侧的这三项；
-# 只跑离线分析（analysis/）时可以不装。
+# 本地编码器后端需要以下依赖；只使用云端编码服务时可以不安装。
 torch>=2
 transformers>=4.40
 sentence-transformers>=3
