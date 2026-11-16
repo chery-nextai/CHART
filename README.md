@@ -1,6 +1,22 @@
 <h1 align="center">CHART: Configuration History for Adaptive Retrieval Tuning</h1>
 
 <p align="center">
+  <a href="https://github.com/chery-nextai">Chenchen Zhao</a><sup>*</sup>,
+  <a href="https://github.com/chery-nextai">Yi Wei</a><sup>*</sup>,
+  <a href="https://github.com/chery-nextai">Zhengyu Chen</a>,
+  <a href="https://github.com/chery-nextai">Ma Xiao</a>,
+  <a href="https://github.com/chery-nextai">Yijun Chen</a>,
+  <a href="https://github.com/chery-nextai">Zhiquan Hu</a>,
+  <a href="https://github.com/chery-nextai">Chao Han</a>,
+  <a href="https://github.com/chery-nextai">Xiao Zhang</a><sup>†</sup>,
+  <a href="https://github.com/chery-nextai">Chuang Dai</a>
+</p>
+
+<p align="center">NEXTAI Research Institute, Chery Group.</p>
+
+<p align="center"><sub>* Equal contribution. † Corresponding author.</sub></p>
+
+<p align="center">
   Budgeted configuration search for multimodal retrieval-augmented generation
 </p>
 
