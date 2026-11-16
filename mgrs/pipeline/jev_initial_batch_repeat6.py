@@ -61,7 +61,7 @@ DEFAULT_RUN_ID = "20261015_jev_initial_batch_repeat6_q50_budget30"
 DEFAULT_CACHE_SOURCE = "20261012_jev_support_6seed_no_rules_llm_q50_budget30"
 ALL_POLICIES = ("jit", "jit_no_rules", "random", "llm", "coordinate_descent", "tpe")
 REWARD_KEY = "mean_jev_support"
-# 评分口径为 DQCR（双题复合判题奖励），题面与聚合见 mgrs/pipeline/dqcr_reward.py。
+# 评分口径为 RDS（双题复合判题奖励），题面与聚合见 mgrs/pipeline/dqcr_reward.py。
 # 两个 schema 有明确分工：
 #   FINGERPRINT_SCHEMA —— 进 JEV 请求指纹（JevEvaluator.fingerprint）。只描述"发出去的请求"，
 #     所以**不含 γ/mode**：换聚合参数不改请求，应答缓存全命中，γ 扫描零调用。
@@ -77,7 +77,7 @@ REDUNDANCY_GAMMA = _RESOLVED_REWARD.gamma
 REDUNDANCY_MODE = _RESOLVED_REWARD.mode
 VISION_MODEL = (os.environ.get("MGRS_VISION_MODEL") or "qwen3.7-flash").strip()
 DECISION_MODEL = (os.environ.get("MGRS_DECISION_MODEL") or "qwen3.8-max").strip()
-# 判题后端（DQCR 的判题器）全部走环境变量，仓库内不留内置端点或密钥：
+# 判题后端（RDS 的判题器）全部走环境变量，仓库内不留内置端点或密钥：
 #   MGRS_JUDGE_BACKEND       jev（默认，原生网关协议）| openai_chat（OpenAI 兼容端点）
 #   MGRS_JUDGE_API_URL       判题端点（旧名 JEV_API_URL 仍可用）
 #   MGRS_JUDGE_MODEL         判题模型名（旧名 JEV_MODEL 仍可用）
@@ -96,7 +96,7 @@ VISION_PROMPT = (
     "relationships. Do not answer a question or infer facts outside the image."
 )
 VISION_PROMPT_VERSION = "image_facts_no_question_v1"
-# JEV_QUESTIONS 由 DQCR 口径注入：一次调用两道题（support + redundancy），
+# JEV_QUESTIONS 由 RDS 口径注入：一次调用两道题（support + redundancy），
 # **但聚合后仍只有一个标量出口**——REWARD_KEY 仍是 `mean_jev_support`，
 # 控制器、轨迹、manifest、下游统计链路一字不改。
 RELAY_URL = (

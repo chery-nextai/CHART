@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# MGRS 定版搜索：一个知识库 × 六个策略 × 20 个 seed × 30 次评估。
-# 奖励口径固定为 DQCR（双题复合：support 三档 + redundancy 四档，γ=0.5，scale 归一）。
+# CHART 定版搜索：一个知识库 × 六个策略 × 20 个 seed × 30 次评估。
+# 奖励口径固定为 RDS（双题复合：support 三档 + redundancy 四档，γ=0.5，scale 归一）。
 #
 # 用法：
 #   DATASET=techslides bash scripts/run_search.sh                        # 续跑（已完成的 seed/策略自动跳过）
@@ -111,7 +111,7 @@ if [[ -n "$STRATEGIES" ]]; then
 fi
 
 echo "[run] $(date '+%F %T') dataset=$DATASET run_id=$RUN_ID repeats=$REPEATS seed=$SEED"
-echo "[run] reward=dqcr gamma=$REDUNDANCY_GAMMA mode=$REDUNDANCY_MODE es=$ES_URL"
+echo "[run] reward=RDS scheme=dqcr gamma=$REDUNDANCY_GAMMA mode=$REDUNDANCY_MODE es=$ES_URL"
 echo "[run] judge backend=${MGRS_JUDGE_BACKEND:-jev} model=${CURRENT_JUDGE:-<unset>}"
 
 "$PYTHON" -u -m mgrs.pipeline.jev_ao_format_v1_chunk_single \

@@ -175,7 +175,7 @@ def main() -> None:
     L: list[str] = []
     L.append("# 三数据集 × 20 种子 × 六策略 AO 搜索结果报告\n")
     L.append(
-        "**日期**：2026-11-04　**口径**：DQCR 双题复合"
+        "**日期**：2026-11-04　**口径**：RDS 双题复合"
         "（JEV 一次调用出 support 三档 + redundancy 四档，"
         "score = P·(1 − γ·E[R])，γ=0.5 / mode=scale）\n"
     )
@@ -191,7 +191,7 @@ def main() -> None:
              "spread 在 minimax 初始批里两两不同 |")
     L.append("| 每格 | 每 (seed, 策略) 一条轨迹，30 步 |")
     L.append("| 接线 | 每数据集一个 run 目录，20 个 rep 按 seed 组织；六臂在同一 rep 内共享初始批 |")
-    L.append("| 评估模型 | Jev_AO（DQCR 双题口径，≥ 1.13 网关）|")
+    L.append("| 评估模型 | Jev_AO（RDS 双题口径，≥ 1.13 网关）|")
     L.append("")
     L.append(
         "**20 个种子**：" + ", ".join(str(s) for s in sorted(common)) + "\n"
