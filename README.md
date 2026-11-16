@@ -54,7 +54,11 @@ Images are transcribed into question-independent facts before judging. RDS is an
 
 ## 🎬 Demo
 
-The [archived animation](assets/mgrs_demo.gif) illustrates search trajectories against Random. It was recorded before the rename, so its frames retain the former MGRS label and use historical JEV models. [Download the MP4](assets/mgrs_demo.mp4). The 20-seed comparison below is the main quantitative result.
+<p align="center">
+  <img src="assets/chart_demo.gif" alt="Illustrative CHART vs Random 30-step reward trajectories for Pharmaceuticals, Finance EN, and TechSlides" width="100%">
+</p>
+
+<p align="center"><em>Illustrative trajectories selected post hoc; scores use historical JEV models. The complete 20-seed comparison below is the primary quantitative result.</em></p>
 
 ## 📈 Results
 
@@ -105,7 +109,7 @@ To build indexes for a new corpus, see `python scripts/build_ao_dataset_index.py
 DATASET=techslides POLICIES=jit_no_rules SEEDS=20 STEPS=25 bash scripts/run.sh
 ```
 
-`jit_no_rules` is the command-line identifier for CHART. The legacy `jit` policy adds rules and is treated as an ablation. The repository URL, Python package `mgrs`, `MGRS_*` environment variables, `dqcr` manifest scheme, and historical media filenames remain unchanged for compatibility with frozen runs and existing commands.
+`jit_no_rules` is the command-line identifier for CHART. The legacy `jit` policy adds rules and is treated as an ablation. The repository URL is current; the legacy Python package `mgrs`, `MGRS_*` environment variables, and `dqcr` manifest scheme remain for compatibility with frozen runs and existing commands.
 
 Use `DATASET=pharmaceuticals` or `DATASET=finance_en` for the other collections. Leaving `POLICIES` empty runs all six implemented strategies. `SEEDS` controls the number of search repeats and `STEPS` the decisions after the initial five evaluations. `TEXT_TOPK`, `IMAGE_TOPK`, `CHUNKS`, and `BACKENDS` can narrow the search space; see [the frozen configuration](configs/definitive_runs.json) for the full protocol.
 
